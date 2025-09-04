@@ -1,0 +1,28 @@
+[tool.poetry]
+# Project metadata
+name = "cairo-backend"
+version = "0.1.0"
+description = "Django backend for Cairo project"
+authors = ["baltierra <fabs@illinois.edu>"]
+readme = "README.md"
+
+# 🚫 Not a library/package — just dependency management
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.12"
+django = "5.2"
+django-environ = "^0.12"
+djangorestframework = "^3.16.1"
+drf-spectacular = "^0.28.0"
+djangorestframework-simplejwt = "^5.3"
+django-cors-headers = "^4.7.0"
+
+[tool.poetry.group.dev.dependencies]
+django-stubs = "^5.2.2"
+mypy = "^1.17.1"
+ruff = "^0.12.11"
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"

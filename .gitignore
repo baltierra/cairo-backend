@@ -9,7 +9,39 @@
 *.user
 *.userosscache
 *.sln.docstates
-*.env
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyc
+
+# Virtual env (when using in-project venvs)
+.venv/
+
+# Env files
+.env
+.env.*
+!.env.example
+.env.local
+
+# SQLite databases and backups (keep if you do NOT want to commit db)
+*.sqlite3
+*.sqlite3-journal
+
+# Django static collect
+/static/
+
+# Editors
+.vscode/
+.idea/
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
