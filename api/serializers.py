@@ -1,23 +1,61 @@
-# api/serializers.py
 from rest_framework import serializers
+from core.models import (
+    Photo,
+    HistoricPerson,
+    HistoricPlace,
+    HistoricEvent,
+    PersonPlace,
+    EventPerson,
+    EventPhoto,
+    PlacePhoto,
+)
 
-# Tip: Keep your DB models in core.models.
-# Add serializers here as you create models.
+
+# Base serializers
+class PhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Photo
+        fields = "__all__"
 
 
-class EmptySerializer(serializers.Serializer):
-    """
-    Useful for endpoints that don't need request/response fields
-    (e.g., health checks). Replace/remove when you add real serializers.
-    """
-    pass
+class HistoricPersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricPerson
+        fields = "__all__"
 
 
-# Example template for when you add your first model:
-#
-# from core.models import Note
-#
-# class NoteSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Note
-#         fields = ["id", "title", "body", "created_at"]
+class HistoricPlaceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricPlace
+        fields = "__all__"
+
+
+class HistoricEventSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricEvent
+        fields = "__all__"
+
+
+# Junction serializers
+class PersonPlaceSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PersonPlace
+        fields = "__all__"
+
+
+class EventPersonSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventPerson
+        fields = "__all__"
+
+
+class EventPhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = EventPhoto
+        fields = "__all__"
+
+
+class PlacePhotoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = PlacePhoto
+        fields = "__all__"

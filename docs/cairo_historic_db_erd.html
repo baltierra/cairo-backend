@@ -1,0 +1,404 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historical Database Design</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        h1, h2 {
+            color: #333;
+            border-bottom: 2px solid #4CAF50;
+            padding-bottom: 10px;
+        }
+        .diagram-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        svg {
+            width: 100%;
+            height: auto;
+        }
+        .entity {
+            fill: #e3f2fd;
+            stroke: #1976d2;
+            stroke-width: 2;
+        }
+        .entity-title {
+            fill: #1976d2;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        .attribute {
+            fill: #333;
+            font-size: 12px;
+        }
+        .relationship {
+            fill: #fff3e0;
+            stroke: #f57c00;
+            stroke-width: 2;
+        }
+        .line {
+            stroke: #666;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        .crow-foot {
+            stroke: #666;
+            stroke-width: 1.5;
+            fill: none;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        th {
+            background: #4CAF50;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: bold;
+        }
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+        tr:hover {
+            background: #f5f5f5;
+        }
+        .pk {
+            color: #d32f2f;
+            font-weight: bold;
+        }
+        .fk {
+            color: #1976d2;
+            font-weight: bold;
+        }
+        .section {
+            margin: 30px 0;
+        }
+    </style>
+</head>
+<body>
+    <h1>Historical Database Design</h1>
+    
+    <div class="section">
+        <h2>Entity-Relationship Diagram (Chen Notation)</h2>
+        <div class="diagram-container">
+            <svg viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+                <!-- Historic Person Entity -->
+                <rect class="entity" x="50" y="200" width="200" height="180" rx="5"/>
+                <text class="entity-title" x="150" y="225" text-anchor="middle">HISTORIC_PERSON</text>
+                <text class="attribute" x="60" y="245">• ID (PK)</text>
+                <text class="attribute" x="60" y="260">• first_name</text>
+                <text class="attribute" x="60" y="275">• last_name</text>
+                <text class="attribute" x="60" y="290">• dob</text>
+                <text class="attribute" x="60" y="305">• brief</text>
+                <text class="attribute" x="60" y="320">• biography</text>
+                <text class="attribute" x="60" y="335">• date_added</text>
+                <text class="attribute" x="60" y="350">• date_modified</text>
+                
+                <!-- Historic Place Entity -->
+                <rect class="entity" x="950" y="200" width="200" height="210" rx="5"/>
+                <text class="entity-title" x="1050" y="225" text-anchor="middle">HISTORIC_PLACE</text>
+                <text class="attribute" x="960" y="245">• ID (PK)</text>
+                <text class="attribute" x="960" y="260">• place_name</text>
+                <text class="attribute" x="960" y="275">• latitude</text>
+                <text class="attribute" x="960" y="290">• longitude</text>
+                <text class="attribute" x="960" y="305">• date_start</text>
+                <text class="attribute" x="960" y="320">• date_end</text>
+                <text class="attribute" x="960" y="335">• brief</text>
+                <text class="attribute" x="960" y="350">• history</text>
+                <text class="attribute" x="960" y="365">• date_added</text>
+                <text class="attribute" x="960" y="380">• date_modified</text>
+                
+                <!-- Historic Event Entity -->
+                <rect class="entity" x="475" y="50" width="200" height="165" rx="5"/>
+                <text class="entity-title" x="575" y="75" text-anchor="middle">HISTORIC_EVENT</text>
+                <text class="attribute" x="485" y="95">• ID (PK)</text>
+                <text class="attribute" x="485" y="110">• event_name</text>
+                <text class="attribute" x="485" y="125">• event_date</text>
+                <text class="attribute" x="485" y="140">• event_description</text>
+                <text class="attribute" x="485" y="155">• significance</text>
+                <text class="attribute" x="485" y="170">• date_added</text>
+                <text class="attribute" x="485" y="185">• date_modified</text>
+                
+                <!-- Photo Entity -->
+                <rect class="entity" x="475" y="500" width="200" height="165" rx="5"/>
+                <text class="entity-title" x="575" y="525" text-anchor="middle">PHOTO</text>
+                <text class="attribute" x="485" y="545">• ID (PK)</text>
+                <text class="attribute" x="485" y="560">• file_name</text>
+                <text class="attribute" x="485" y="575">• file_path</text>
+                <text class="attribute" x="485" y="590">• file_type</text>
+                <text class="attribute" x="485" y="605">• caption</text>
+                <text class="attribute" x="485" y="620">• upload_date</text>
+                <text class="attribute" x="485" y="635">• file_size</text>
+                
+                <!-- Person-Place Association -->
+                <polygon class="relationship" points="350,290 450,240 550,290 450,340"/>
+                <text x="450" y="295" text-anchor="middle" font-size="12">Associated</text>
+                <text x="450" y="310" text-anchor="middle" font-size="10">date_association</text>
+                
+                <!-- Person-Event Participation -->
+                <polygon class="relationship" points="300,180 350,130 400,180 350,230"/>
+                <text x="350" y="185" text-anchor="middle" font-size="12">Participates</text>
+                
+                <!-- Place-Event Location -->
+                <polygon class="relationship" points="750,180 800,130 850,180 800,230"/>
+                <text x="800" y="185" text-anchor="middle" font-size="12">Occurs At</text>
+                
+                <!-- Photo Relationships -->
+                <polygon class="relationship" points="300,450 350,400 400,450 350,500"/>
+                <text x="350" y="455" text-anchor="middle" font-size="12">Has Photo</text>
+                
+                <polygon class="relationship" points="750,450 800,400 850,450 800,500"/>
+                <text x="800" y="455" text-anchor="middle" font-size="12">Has Photo</text>
+                
+                <!-- Relationship Lines -->
+                <!-- Person to Association -->
+                <line class="line" x1="250" y1="290" x2="350" y2="290"/>
+                <line class="crow-foot" x1="340" y1="285" x2="350" y2="290"/>
+                <line class="crow-foot" x1="340" y1="295" x2="350" y2="290"/>
+                
+                <!-- Association to Place -->
+                <line class="line" x1="550" y1="290" x2="950" y2="290"/>
+                <line class="crow-foot" x1="940" y1="285" x2="950" y2="290"/>
+                <line class="crow-foot" x1="940" y1="295" x2="950" y2="290"/>
+                
+                <!-- Person to Event -->
+                <line class="line" x1="250" y1="230" x2="350" y2="180"/>
+                <line class="crow-foot" x1="245" y1="225" x2="250" y2="230"/>
+                <line class="crow-foot" x1="245" y1="235" x2="250" y2="230"/>
+                
+                <line class="line" x1="400" y1="180" x2="475" y2="132"/>
+                <line class="crow-foot" x1="465" y1="130" x2="475" y2="132"/>
+                <line class="crow-foot" x1="468" y1="138" x2="475" y2="132"/>
+                
+                <!-- Place to Event -->
+                <line class="line" x1="950" y1="230" x2="850" y2="180"/>
+                <line class="crow-foot" x1="945" y1="225" x2="950" y2="230"/>
+                <line class="crow-foot" x1="945" y1="235" x2="950" y2="230"/>
+                
+                <line class="line" x1="750" y1="180" x2="675" y2="132"/>
+                <line class="crow-foot" x1="675" y1="130" x2="675" y2="132"/>
+                <line class="crow-foot" x1="680" y1="138" x2="675" y2="132"/>
+                
+                <!-- Person to Photo -->
+                <line class="line" x1="150" y1="380" x2="150" y2="450"/>
+                <line class="line" x1="150" y1="450" x2="350" y2="450"/>
+                <line class="crow-foot" x1="340" y1="445" x2="350" y2="450"/>
+                <line class="crow-foot" x1="340" y1="455" x2="350" y2="450"/>
+                
+                <line class="line" x1="400" y1="450" x2="475" y2="500"/>
+                <text x="150" y="440" font-size="10">0..1</text>
+                
+                <!-- Place to Photo -->
+                <line class="line" x1="1050" y1="410" x2="1050" y2="450"/>
+                <line class="line" x1="1050" y1="450" x2="850" y2="450"/>
+                <line class="crow-foot" x1="855" y1="445" x2="850" y2="450"/>
+                <line class="crow-foot" x1="855" y1="455" x2="850" y2="450"/>
+                
+                <line class="line" x1="750" y1="450" x2="675" y2="500"/>
+                <text x="1050" y="440" font-size="10">0..10</text>
+            </svg>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Relational Model (Table Schemas)</h2>
+        
+        <h3>Core Entities</h3>
+        <table>
+            <tr>
+                <th>Table: HISTORIC_PERSON</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="pk">person_id</span></td><td>INTEGER</td><td>PRIMARY KEY, AUTO_INCREMENT</td></tr>
+            <tr><td>first_name</td><td>VARCHAR(25)</td><td>NOT NULL</td></tr>
+            <tr><td>last_name</td><td>VARCHAR(25)</td><td>NOT NULL</td></tr>
+            <tr><td>dob</td><td>DATE</td><td></td></tr>
+            <tr><td>brief</td><td>VARCHAR(250)</td><td></td></tr>
+            <tr><td>biography</td><td>TEXT(10000)</td><td></td></tr>
+            <tr><td>date_added</td><td>DATE</td><td>NOT NULL, DEFAULT CURRENT_DATE</td></tr>
+            <tr><td>date_modified</td><td>DATE</td><td>NOT NULL, DEFAULT CURRENT_DATE</td></tr>
+            <tr><td><span class="fk">profile_photo_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES PHOTO(photo_id)</td></tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Table: HISTORIC_PLACE</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="pk">place_id</span></td><td>INTEGER</td><td>PRIMARY KEY, AUTO_INCREMENT</td></tr>
+            <tr><td>place_name</td><td>VARCHAR(50)</td><td>NOT NULL</td></tr>
+            <tr><td>latitude</td><td>DECIMAL(10,8)</td><td>NOT NULL</td></tr>
+            <tr><td>longitude</td><td>DECIMAL(11,8)</td><td>NOT NULL</td></tr>
+            <tr><td>date_start</td><td>DATE</td><td></td></tr>
+            <tr><td>date_end</td><td>DATE</td><td></td></tr>
+            <tr><td>brief</td><td>VARCHAR(250)</td><td></td></tr>
+            <tr><td>history</td><td>TEXT(10000)</td><td></td></tr>
+            <tr><td>date_added</td><td>DATE</td><td>NOT NULL, DEFAULT CURRENT_DATE</td></tr>
+            <tr><td>date_modified</td><td>DATE</td><td>NOT NULL, DEFAULT CURRENT_DATE</td></tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Table: HISTORIC_EVENT</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="pk">event_id</span></td><td>INTEGER</td><td>PRIMARY KEY, AUTO_INCREMENT</td></tr>
+            <tr><td>event_name</td><td>VARCHAR(100)</td><td>NOT NULL</td></tr>
+            <tr><td>event_date</td><td>DATE</td><td>NOT NULL</td></tr>
+            <tr><td>event_description</td><td>TEXT(10000)</td><td>NOT NULL</td></tr>
+            <tr><td>significance</td><td>VARCHAR(50)</td><td>CHECK IN ('LOCAL', 'REGIONAL', 'NATIONAL', 'GLOBAL')</td></tr>
+            <tr><td>date_added</td><td>DATE</td><td>NOT NULL, DEFAULT CURRENT_DATE</td></tr>
+            <tr><td>date_modified</td><td>DATE</td><td>NOT NULL, DEFAULT CURRENT_DATE</td></tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Table: PHOTO</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="pk">photo_id</span></td><td>INTEGER</td><td>PRIMARY KEY, AUTO_INCREMENT</td></tr>
+            <tr><td>file_name</td><td>VARCHAR(255)</td><td>NOT NULL</td></tr>
+            <tr><td>file_path</td><td>VARCHAR(500)</td><td>NOT NULL, UNIQUE</td></tr>
+            <tr><td>file_type</td><td>VARCHAR(10)</td><td>CHECK IN ('png', 'jpg', 'jpeg')</td></tr>
+            <tr><td>caption</td><td>VARCHAR(250)</td><td></td></tr>
+            <tr><td>upload_date</td><td>DATETIME</td><td>NOT NULL, DEFAULT CURRENT_TIMESTAMP</td></tr>
+            <tr><td>file_size</td><td>INTEGER</td><td></td></tr>
+        </table>
+
+        <h3>Association Tables (Junction Tables)</h3>
+        <table>
+            <tr>
+                <th>Table: PERSON_PLACE</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="fk">person_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_PERSON(person_id)</td></tr>
+            <tr><td><span class="fk">place_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_PLACE(place_id)</td></tr>
+            <tr><td>association_date</td><td>DATE</td><td></td></tr>
+            <tr><td>association_type</td><td>VARCHAR(50)</td><td></td></tr>
+            <tr><td colspan="3">PRIMARY KEY (person_id, place_id, association_date)</td></tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Table: EVENT_PERSON</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="fk">event_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_EVENT(event_id)</td></tr>
+            <tr><td><span class="fk">person_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_PERSON(person_id)</td></tr>
+            <tr><td>role</td><td>VARCHAR(100)</td><td></td></tr>
+            <tr><td colspan="3">PRIMARY KEY (event_id, person_id)</td></tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Table: EVENT_PLACE</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="fk">event_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_EVENT(event_id)</td></tr>
+            <tr><td><span class="fk">place_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_PLACE(place_id)</td></tr>
+            <tr><td colspan="3">PRIMARY KEY (event_id, place_id)</td></tr>
+        </table>
+
+        <table>
+            <tr>
+                <th>Table: PLACE_PHOTO</th>
+                <th>Data Type</th>
+                <th>Constraints</th>
+            </tr>
+            <tr><td><span class="fk">place_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES HISTORIC_PLACE(place_id)</td></tr>
+            <tr><td><span class="fk">photo_id</span></td><td>INTEGER</td><td>FOREIGN KEY REFERENCES PHOTO(photo_id)</td></tr>
+            <tr><td>photo_order</td><td>INTEGER</td><td>CHECK (photo_order BETWEEN 1 AND 10)</td></tr>
+            <tr><td colspan="3">PRIMARY KEY (place_id, photo_id)</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>Normal Forms Compliance</h2>
+        <div class="diagram-container">
+            <h3>✓ First Normal Form (1NF)</h3>
+            <ul>
+                <li>All attributes contain atomic values (no multi-valued attributes)</li>
+                <li>Each table has a primary key</li>
+                <li>No repeating groups (photos separated into their own table)</li>
+            </ul>
+
+            <h3>✓ Second Normal Form (2NF)</h3>
+            <ul>
+                <li>Already in 1NF</li>
+                <li>All non-key attributes are fully functionally dependent on the primary key</li>
+                <li>No partial dependencies in composite keys</li>
+            </ul>
+
+            <h3>✓ Third Normal Form (3NF)</h3>
+            <ul>
+                <li>Already in 2NF</li>
+                <li>No transitive dependencies</li>
+                <li>All attributes depend directly on the primary key</li>
+            </ul>
+
+            <h3>✓ Boyce-Codd Normal Form (BCNF)</h3>
+            <ul>
+                <li>Already in 3NF</li>
+                <li>Every determinant is a candidate key</li>
+                <li>No functional dependencies where non-superkey determines other attributes</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Key Design Features</h2>
+        <div class="diagram-container">
+            <h3>1. Coordinate Storage</h3>
+            <p>Latitude and Longitude stored as DECIMAL(10,8) and DECIMAL(11,8) respectively, providing ~1.1mm precision, perfect for Google Maps integration.</p>
+
+            <h3>2. Photo Management</h3>
+            <p>Centralized photo table with relationships to both persons (1:1 for profile) and places (1:many up to 10). This allows for:</p>
+            <ul>
+                <li>Consistent photo metadata management</li>
+                <li>Efficient storage with no duplication</li>
+                <li>Easy addition of photo-specific features (thumbnails, EXIF data)</li>
+            </ul>
+
+            <h3>3. Event Architecture</h3>
+            <p>Separate event entity enables:</p>
+            <ul>
+                <li>Rich event descriptions and metadata</li>
+                <li>Many-to-many relationships with both persons and places</li>
+                <li>Role-based participation (e.g., "witness", "leader", "victim")</li>
+                <li>Events without specific people (natural disasters)</li>
+            </ul>
+
+            <h3>4. Temporal Tracking</h3>
+            <p>Multiple date fields for different purposes:</p>
+            <ul>
+                <li>Content dates (DOB, event_date, association_date)</li>
+                <li>Validity periods (date_start, date_end for places)</li>
+                <li>Audit dates (date_added, date_modified)</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

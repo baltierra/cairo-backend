@@ -1,0 +1,303 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{enumitem}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{hyperref}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{datetime2}
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=blue}
+
+\title{HEROIC -- Agile Development \& Deployment Plan}
+\author{SCiMMA HEROIC Team}
+\date{\today}
+
+\lstdefinelanguage{YAML}{
+  keywords={true,false,null,y,n},
+  sensitive=false,
+  comment=[l]{\#},
+  morecomment=[s]{/*}{*/},
+  morestring=[b]',
+  morestring=[b]",
+}
+
+\begin{document}
+\maketitle
+
+\section{Context \& Goals}
+HEROIC is a SCiMMA-led service that aggregates observatory status and telemetry, stores it in a queryable database, and exposes it via a RESTful API and front-end for the MMA community. This plan translates the project objectives into a concrete, repeatable Scrum process for a two-person, distributed team (California \& Illinois), with a robust and incremental deployment workflow for the \texttt{dev} and \texttt{prod} virtual machines on Jetstream2.
+
+\paragraph{Repositories} Backend: \href{https://github.com/scimma/heroic}{scimma/heroic}. Frontend: \href{https://github.com/scimma/heroic-frontend}{scimma/heroic-frontend}.
+
+\section{Scrum Cadence \& Ceremonies}
+\textbf{Sprint length:} 2 weeks. \textbf{Recommended start day:} \emph{Tuesday}. Rationale: avoids U.S. Monday holidays, gives Monday buffer for harden/bugfix \& release notes, and ensures better cross-time-zone overlap (CA/PT and IL/CT) midweek.
+
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Sprint Planning} (Tue Week 1): 90 minutes. Define Sprint Goal; pull top-priority items into the Sprint Backlog. Capacity-based planning; confirm acceptance criteria.
+  \item \textbf{Daily Standup}: 15 minutes Tue--Fri at 10:30\,PT / 12:30\,CT. On Mondays, use an async Slack thread (status, blockers, plan).
+  \item \textbf{Backlog Grooming/Refinement}: 45 minutes Thu Week 1. Ensure the top 1--2 sprints are \emph{ready} (well-defined, pointed, with acceptance criteria).
+  \item \textbf{Sprint Review + Demo} (Mon Week 2): 45 minutes with stakeholders; show working software on \texttt{dev}. Collect feedback.
+  \item \textbf{Sprint Retrospective} (Mon Week 2, after Review): 30 minutes. 1--2 improvement actions added to the backlog as \emph{type/process}.
+  \item \textbf{Release Window} (Wed Week 2): Promote the increment to \texttt{prod} after smoke tests and approvals.
+\end{itemize}
+
+\paragraph{Definitions}
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Definition of Ready (DoR):} user story has a clear problem statement, acceptance criteria, dependencies noted, test strategy outline, and estimated story points.
+  \item \textbf{Definition of Done (DoD):} code merged to \texttt{main}, unit/API tests updated and passing, security/lint checks clean, docs/changelog updated, feature flags configured (if any), deployed to \texttt{dev}, basic monitoring/alerts in place.
+\end{itemize}
+
+\section{Backlog Construction \& Administration}
+We will use a single GitHub Projects board (\textit{HEROIC Program Board}) across the two repositories. Columns: \textit{Triage}, \textit{Ready}, \textit{In Progress}, \textit{Review}, \textit{Blocked}, \textit{Done}.
+
+\subsection*{Label Taxonomy (create in both repos)}
+\begin{longtable}{@{}p{3.2cm}p{10.8cm}@{}}
+\toprule
+\textbf{Category} & \textbf{Labels (examples)} \\
+\midrule
+Type & \texttt{type/bug}, \texttt{type/feature}, \texttt{type/docs}, \texttt{type/devops}, \texttt{type/process} \\
+Area & \texttt{area/backend}, \texttt{area/frontend}, \texttt{area/api}, \texttt{area/db}, \texttt{area/deploy}, \texttt{area/ui} \\
+Priority & \texttt{priority/P0}, \texttt{priority/P1}, \texttt{priority/P2} \\
+Status (optional) & \texttt{status/triage}, \texttt{status/needs-spec}, \texttt{status/ready}, \texttt{status/blocked} \\
+Risk & \texttt{risk/data-loss}, \texttt{risk/availability}, \texttt{risk/security} \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Issue Templates \& PR Templates}
+Add \texttt{.github/ISSUE\_TEMPLATE/} for \emph{bug} and \emph{story} templates (with fields: context, acceptance criteria, test notes), and \texttt{PULL\_REQUEST\_TEMPLATE.md} (checklist: tests, docs, security review items). Add \texttt{CODEOWNERS} for required reviewers per area.
+
+\section{Seed Backlog (from current open issues)}
+\subsection*{Backend (\texttt{scimma/heroic})}
+\begin{longtable}{@{}p{1.5cm}p{11.8cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Title (initial categorization)} \\ \midrule
+\#29 & Possibly add date filter to admin (\textit{feature, area/backend, area/ui}) \\
+\#26 & Historical data may grow large quickly (\textit{feature/ops: retention, area/db}) \\
+\#25 & Admin filter names not specific enough (\textit{ux improvement, area/ui}) \\
+\#22 & Say what ID already exists (\textit{error messaging, area/api}) \\
+\#21 & Hierarchy ID makes providing parent redundant (\textit{data model, area/api}) \\
+\#15 & Pointing constantly changes for at least 2 telescopes (\textit{bug/ingest logic}) \\
+\#10 & TelescopeStatus model missing max update rate expectation (\textit{schema/validation}) \\
+\#8  & Nulls not allowed where values may be unavailable (\textit{schema/nullable fields}) \\
+\#3  & Return better error info in API response (\textit{error handling}) \\
+\bottomrule
+\end{longtable}
+
+\subsection*{Frontend (\texttt{scimma/heroic-frontend})}
+\begin{longtable}{@{}p{1.5cm}p{11.8cm}@{}}
+\toprule
+\textbf{ID} & \textbf{Title (initial categorization)} \\ \midrule
+\#10 & Telescope rows should list update date/time (\textit{feature, area/ui}) \\
+\#9  & Instrument rows should list update date/time (\textit{feature, area/ui}) \\
+\#8  & Timezones should be UTC, not GMT (\textit{bug, area/ui}) \\
+\#7  & Map icons centered on middle, not the point (\textit{bug, area/ui}) \\
+\#6  & Telescope filter does not change world plot (\textit{bug, area/ui}) \\
+\bottomrule
+\end{longtable}
+
+\paragraph{Next steps} For each item above, add acceptance criteria, estimate (story points), and link to a milestone/epic. Create epics matching the funded objectives (schema, Hopskotch ingestion, REST API, TOM/AEON integration, visualizations, training/onboarding).
+
+\section{Roadmap Themes (6--9 months)}
+\begin{enumerate}[leftmargin=1.2em]
+  \item \textbf{Stability \& Data Quality}: schema fixes (nullable fields, update-rate constraints), ingest validation, error messaging.
+  \item \textbf{Discoverability \& UX}: admin filters, update timestamps, correct map markers, timezone correctness.
+  \item \textbf{Scale \& Operations}: retention policy \& partitioning, DB indices, nightly backups, observability.
+  \item \textbf{Integrations}: AEON/TOM hooks, Python client enhancements, authenticated embed endpoints.
+  \item \textbf{Docs \& Enablement}: onboarding guides for facilities, API usage notebooks, contribution guide.
+\end{enumerate}
+
+\section{Initial 3 Sprints (illustrative plan)}
+\subsection*{Sprint 1 --- ``Make it Correct'' (Quality Baseline)}
+Goal: fix top-priority correctness and UX issues; establish CI gates.
+\begin{itemize}[leftmargin=1.2em]
+  \item FE \#8, \#7, \#6 (timezone, map icon anchor, telescope filter correctness).
+  \item BE \#8, \#3 (nullable fields where appropriate; better error payloads).
+  \item Add CI gates: unit tests, API tests, lint (Ruff/Black), vulnerability scan (pip-audit or Safety), frontend build \& lints.
+  \item Outcome: stable \texttt{dev} demo; baseline dashboards/alerts online.
+\end{itemize}
+
+\subsection*{Sprint 2 --- ``Make it Useful'' (Admin \& Timestamps)}
+Goal: improve triage usability and operator visibility.
+\begin{itemize}[leftmargin=1.2em]
+  \item FE \#10, \#9 (show last-update timestamps for telescopes/instruments).
+  \item BE \#29, \#25, \#22 (date filter in admin; clearer filter names; explicit duplicate-ID messages).
+  \item Add API contract tests for timestamp fields and filters.
+\end{itemize}
+
+\subsection*{Sprint 3 --- ``Make it Scalable'' (Data Growth \& Update Rates)}
+Goal: ensure controlled growth, predictable load.
+\begin{itemize}[leftmargin=1.2em]
+  \item BE \#26 (data growth --- implement retention policy: e.g., raw status TTL, summarized tables retained).
+  \item BE \#10, \#21, \#15 (update-rate expectations; hierarchy/parent simplification if justified; pointing-change logic).
+  \item DB: indexes, VACUUM/ANALYZE schedule, nightly \texttt{pg\_dump} with retention.
+\end{itemize}
+
+\paragraph{Capacity \& Velocity} Start with conservative WIP (e.g., 2--3 concurrent stories). After Sprint 1, compute empirical velocity (story points completed) and use it for subsequent planning. Prefer small stories (1--3 points).
+
+\section{Deployment Plan (Compose + GitHub Actions)}
+\subsection*{Environments}
+\begin{itemize}[leftmargin=1.2em]
+  \item \texttt{dev} (\texttt{dev.heroic.scimma.org}): auto-deploy on merge to \texttt{main}; smoke tests; used for sprint demos.
+  \item \texttt{prod} (\texttt{heroic.scimma.org}): deploy from a tagged release (e.g., \texttt{v0.y.z}) with manual approval.
+\end{itemize}
+
+\subsection*{Pipeline Stages (both repos)}
+\begin{enumerate}[leftmargin=1.2em]
+  \item \textbf{Build \& Test}: run unit/API tests, linters; produce Docker images with \texttt{docker/build-push-action}; push to GHCR.
+  \item \textbf{Deploy to \texttt{dev}}: via (a) self-hosted runner on the dev VM, or (b) GitHub Actions over secure SSH (e.g., Tailscale/WireGuard). Run \texttt{docker compose pull \& up -d} with healthchecks.
+  \item \textbf{Promote to \texttt{prod}}: gated by GitHub \emph{Environments} approval; backup DB; run migrations; swap images; smoke test endpoints.
+\end{enumerate}
+
+\subsection*{Secrets \& Configuration}
+\begin{itemize}[leftmargin=1.2em]
+  \item Store CI secrets in GitHub \emph{Environments}: \texttt{DEV\_SSH\_HOST}, \texttt{DEV\_SSH\_USER}, \texttt{DEV\_SSH\_KEY}, etc.
+  \item Server-side \texttt{.env}: manage with \texttt{sops} (git-committed encrypted) or with a secrets manager; decrypt during deploy on the runner.
+  \item Branch protection: require PR reviews, status checks, and signed tags for production releases.
+\end{itemize}
+
+\subsection*{Monitoring \& Backups (Jetstream2 VMs)}
+\begin{itemize}[leftmargin=1.2em]
+  \item \textbf{Observability}: add \texttt{cAdvisor} + \texttt{node\_exporter}, ship logs to \texttt{Loki}, create Grafana dashboards (uptime, error rate, latency, ingest lag).
+  \item \textbf{Uptime}: simple HTTP checks (e.g., Gatus) against health endpoints.
+  \item \textbf{Backups}: nightly \texttt{pg\_dump} to OSN or secure object storage; 7/30/180-day retention.
+\end{itemize}
+
+\subsection*{Sample GitHub Actions (Backend)}
+\paragraph{Build, push, and deploy to \texttt{dev} on merge to \texttt{main}}
+\begin{lstlisting}[language=YAML]
+name: backend-ci-dev
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build-test-push:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install deps
+        run: |
+          pip install poetry
+          poetry install
+      - name: Run tests
+        run: poetry run python manage.py test
+      - name: Log in to GHCR
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Build and push image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/scimma/heroic-backend:sha-${{ github.sha }}
+  deploy-dev:
+    needs: build-test-push
+    runs-on: ubuntu-latest
+    environment: dev
+    steps:
+      - name: Deploy to dev via SSH
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.DEV_SSH_HOST }}
+          username: ${{ secrets.DEV_SSH_USER }}
+          key: ${{ secrets.DEV_SSH_KEY }}
+          script: |
+            cd /opt/heroic/backend
+            docker compose pull
+            docker compose up -d
+            docker compose ps
+\end{lstlisting}
+
+\paragraph{Promote to \texttt{prod} on a tag \texttt{v*} (manual approval)}
+\begin{lstlisting}[language=YAML]
+name: backend-release-prod
+on:
+  push:
+    tags: [ "v*" ]
+
+jobs:
+  prechecks:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Generate changelog
+        run: echo "Generate release notes here or use release-please"
+  deploy-prod:
+    runs-on: ubuntu-latest
+    environment: prod
+    needs: prechecks
+    steps:
+      - name: Backup database
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            /opt/heroic/scripts/backup_db.sh
+      - name: Deploy
+        uses: appleboy/ssh-action@v1.2.0
+        with:
+          host: ${{ secrets.PROD_SSH_HOST }}
+          username: ${{ secrets.PROD_SSH_USER }}
+          key: ${{ secrets.PROD_SSH_KEY }}
+          script: |
+            cd /opt/heroic/backend
+            docker compose pull
+            docker compose up -d
+            docker compose ps
+      - name: Smoke test
+        run: curl -fsSL https://heroic.scimma.org/api/health || exit 1
+\end{lstlisting}
+
+\subsection*{Frontend Actions (outline)}
+Mirror the above: build with Node 20, run \texttt{npm ci \& npm run build}, containerize the built assets behind NGINX (or your existing frontend image), push to GHCR, and redeploy via SSH command to \texttt{dev}/\texttt{prod}.
+
+\section{Incremental Improvements (ordered)}
+\begin{enumerate}[leftmargin=1.2em]
+  \item \textbf{Healthchecks}: add \texttt{HEALTHCHECK} to Dockerfiles; compose-level health checks and restart policies.
+  \item \textbf{Migrations discipline}: pre-deploy check, auto-run with guard; rollback script.
+  \item \textbf{Release automation}: adopt \texttt{release-please} (or GH auto-release notes) and \texttt{semver}; tag every prod deploy.
+  \item \textbf{Self-hosted runner (dev VM)}: switch deploy step to a self-hosted runner on the VM for simpler secret handling.
+  \item \textbf{Security}: enable GitHub Dependabot/security alerts; periodic \texttt{trivy} scans of images.
+  \item \textbf{Telemetry summarization job}: scheduled cron (or GH Actions with runner) to compute summary tables/views for faster UI.
+  \item \textbf{Kubernetes trial (optional)}: when ready, port \texttt{docker-compose} to \texttt{compose-spec} \(\rightarrow\) Helm; use Jetstream2 K8s only if ops overhead is justified.
+\end{enumerate}
+
+\section{Working Agreement \& Communication}
+\begin{itemize}[leftmargin=1.2em]
+  \item Core hours overlap: 10:00--14:00 CT (8:00--12:00 PT). Use Slack for async updates; Zoom for ceremonies.
+  \item PRs require 1 reviewer; small PRs ($<$400 LOC) preferred; merge when green + review.
+  \item Use feature flags for risky UX changes; toggle-only in \texttt{dev} first week.
+\end{itemize}
+
+\section{Success Metrics}
+\begin{itemize}[leftmargin=1.2em]
+  \item Lead time to \texttt{dev}/\texttt{prod} (commit \(\rightarrow\) deploy).
+  \item Mean time to recovery (MTTR) for failures.
+  \item Test coverage trend \& escaped defects per sprint.
+  \item Availability SLO (e.g., 99.5\% for \texttt{prod}); error-rate budget.
+\end{itemize}
+
+\section{Appendix A: Initial Board Setup Checklist}
+\begin{enumerate}[leftmargin=1.2em]
+  \item Create GitHub Project (\textit{HEROIC Program Board}); connect both repos.
+  \item Create labels/taxonomy in both repos.
+  \item Add issue/PR templates \& CODEOWNERS.
+  \item Protect \texttt{main}; require status checks and reviews.
+  \item Create GitHub Environments: \texttt{dev}, \texttt{prod}; add secrets; require approvals for \texttt{prod}.
+  \item Add baseline Actions workflows in both repos.
+  \item Add monitoring stack and backup jobs on both VMs.
+\end{enumerate}
+
+\end{document}

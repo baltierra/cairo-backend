@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>Cairo, IL – Historic Places</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Leaflet CSS/JS (CDN) -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+    crossorigin=""
+  />
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <link rel="stylesheet" href="./styles.css" />
+
+  <!-- Configure your API base here if needed -->
+  <script>
+    // Change if your API isn’t at localhost:8000
+    window.API_BASE = "http://127.0.0.1:8000/api/v1";
+  </script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">Cairo Historic Map</div>
+    <div class="view-toggle">
+      <button id="btnMap" class="toggle-btn active">Map</button>
+      <button id="btnList" class="toggle-btn">List</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="map" class="map"></div>
+    <div id="list" class="list hidden">
+      <ul id="placesList" class="places"></ul>
+    </div>
+  </main>
+
+  <!-- Intro Modal -->
+  <div id="introOverlay" class="modal-overlay visible">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+      <button class="modal-close" aria-label="Close" data-close-intro>&times;</button>
+      <h2 id="introTitle">Welcome to Cairo’s Historic Places</h2>
+      <p id="introText">
+        This project documents historic locations in Cairo, Illinois, with images, events,
+        and notable people. (Replace this text with your acknowledgements and sponsor credits.)
+      </p>
+      <div class="modal-actions">
+        <button class="btn primary" data-close-intro>Explore the map</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Place Modal (level 1) -->
+  <div id="placeOverlay" class="modal-overlay">
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="placeTitle">
+      <button class="modal-close" aria-label="Close" data-close-place>&times;</button>
+      <h2 id="placeTitle"></h2>
+      <div class="meta" id="placeMeta"></div>
+      <div id="placeHistory" class="mt"></div>
+
+      <div class="gallery mt" id="placeGallery">
+        <img id="galleryImg" alt="Historic photo" />
+        <div class="gallery-controls">
+          <button id="prevPhoto" class="btn">&larr; Prev</button>
+          <span id="photoCounter">0 / 0</span>
+          <button id="nextPhoto" class="btn">Next &rarr;</button>
+        </div>
+        <div id="photoCaption" class="caption"></div>
+      </div>
+
+      <div class="columns mt">
+        <div class="col">
+          <h3>Events at this place</h3>
+          <ul id="placeEvents" class="link-list"></ul>
+        </div>
+        <div class="col">
+          <h3>People associated</h3>
+          <ul id="placePersons" class="link-list"></ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Nested Modal (level 2) for Event/Person -->
+  <div id="detailOverlay" class="modal-overlay level-2">
+    <div class="modal modal-md" role="dialog" aria-modal="true" aria-labelledby="detailTitle">
+      <button class="modal-close" aria-label="Close" data-close-detail>&times;</button>
+      <h2 id="detailTitle"></h2>
+      <div id="detailBody"></div>
+    </div>
+  </div>
+
+  <script src="./app.js"></script>
+</body>
+</html>

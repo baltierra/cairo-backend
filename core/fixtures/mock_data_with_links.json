@@ -1,0 +1,292 @@
+[
+  {
+    "model": "core.historicplace",
+    "pk": 1,
+    "fields": {
+      "place_name": "Cairo Custom House Museum",
+      "latitude": "37.0064",
+      "longitude": "-89.1836",
+      "brief": "19th-century customs house turned museum.",
+      "history": "Built 1872 as a customs facility for river trade.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicplace",
+    "pk": 2,
+    "fields": {
+      "place_name": "Magnolia Manor",
+      "latitude": "37.0057",
+      "longitude": "-89.1789",
+      "brief": "1880s Victorian mansion showcasing Cairo’s prosperity.",
+      "history": "Completed in 1883 by wealthy lumber baron Charles Parsons.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicplace",
+    "pk": 3,
+    "fields": {
+      "place_name": "Cairo Public Library",
+      "latitude": "37.0092",
+      "longitude": "-89.1761",
+      "brief": "Historic library serving the local community since 1883.",
+      "history": "Established through civic efforts led by Harriet Turner.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicplace",
+    "pk": 4,
+    "fields": {
+      "place_name": "Fort Defiance Park",
+      "latitude": "36.9995",
+      "longitude": "-89.1536",
+      "brief": "Strategic Civil War site at the confluence of rivers.",
+      "history": "Occupied by Union forces under General Grant in 1862.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicplace",
+    "pk": 5,
+    "fields": {
+      "place_name": "Gem Theatre",
+      "latitude": "37.0042",
+      "longitude": "-89.1813",
+      "brief": "Early 20th-century cinema now preserved as a landmark.",
+      "history": "First silent films shown here in 1910.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicevent",
+    "pk": 1,
+    "fields": {
+      "event_name": "Opening of Magnolia Manor",
+      "event_date": "1883-05-01",
+      "event_description": "Mansion completed by wealthy lumber baron.",
+      "significance": "REGIONAL",
+      "place": 2,
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicevent",
+    "pk": 2,
+    "fields": {
+      "event_name": "Completion of Custom House",
+      "event_date": "1872-09-10",
+      "event_description": "Federal customs facility inaugurated.",
+      "significance": "NATIONAL",
+      "place": 1,
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicevent",
+    "pk": 3,
+    "fields": {
+      "event_name": "Union Army Garrison at Fort Defiance",
+      "event_date": "1862-02-15",
+      "event_description": "General Grant established camp during Civil War.",
+      "significance": "NATIONAL",
+      "place": 4,
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicevent",
+    "pk": 4,
+    "fields": {
+      "event_name": "Cairo Library Dedication",
+      "event_date": "1883-11-20",
+      "event_description": "Dedication ceremony for the city’s public library.",
+      "significance": "LOCAL",
+      "place": 3,
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicevent",
+    "pk": 5,
+    "fields": {
+      "event_name": "Premiere of Silent Film at Gem Theatre",
+      "event_date": "1910-04-18",
+      "event_description": "First silent motion picture shown to Cairo residents.",
+      "significance": "LOCAL",
+      "place": 5,
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicperson",
+    "pk": 1,
+    "fields": {
+      "first_name": "Charles",
+      "last_name": "Parsons",
+      "dob": "1835-04-12",
+      "brief": "Lumber baron and original owner of Magnolia Manor.",
+      "biography": "Charles Parsons, a wealthy businessman, built Magnolia Manor as a symbol of Cairo’s prosperity.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicperson",
+    "pk": 2,
+    "fields": {
+      "first_name": "Harriet",
+      "last_name": "Turner",
+      "dob": "1848-09-02",
+      "brief": "Civic leader, helped establish Cairo Public Library.",
+      "biography": "Turner organized fundraising and rallied the community to create Cairo’s first public library.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicperson",
+    "pk": 3,
+    "fields": {
+      "first_name": "John",
+      "last_name": "Riley",
+      "dob": "1825-01-30",
+      "brief": "Civil War officer stationed at Fort Defiance.",
+      "biography": "Served as part of the Union garrison securing the river confluence.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicperson",
+    "pk": 4,
+    "fields": {
+      "first_name": "Margaret",
+      "last_name": "Collins",
+      "dob": "1869-07-14",
+      "brief": "Teacher, early advocate for local historical preservation.",
+      "biography": "Active in preserving landmarks and documenting Cairo’s cultural history.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.historicperson",
+    "pk": 5,
+    "fields": {
+      "first_name": "Thomas",
+      "last_name": "Gray",
+      "dob": "1885-02-27",
+      "brief": "Theatre manager at Gem Theatre during silent film era.",
+      "biography": "Promoted cinema as a cultural institution in Cairo.",
+      "date_added": "2025-01-01T00:00:00Z",
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  },
+  {
+    "model": "core.eventperson",
+    "pk": 1,
+    "fields": {
+      "event": 1,
+      "person": 1,
+      "role": "Owner"
+    }
+  },
+  {
+    "model": "core.eventperson",
+    "pk": 2,
+    "fields": {
+      "event": 4,
+      "person": 2,
+      "role": "Organizer"
+    }
+  },
+  {
+    "model": "core.eventperson",
+    "pk": 3,
+    "fields": {
+      "event": 3,
+      "person": 3,
+      "role": "Officer"
+    }
+  },
+  {
+    "model": "core.eventperson",
+    "pk": 4,
+    "fields": {
+      "event": 2,
+      "person": 4,
+      "role": "Historian"
+    }
+  },
+  {
+    "model": "core.eventperson",
+    "pk": 5,
+    "fields": {
+      "event": 5,
+      "person": 5,
+      "role": "Manager"
+    }
+  },
+  {
+    "model": "core.personplace",
+    "pk": 1,
+    "fields": {
+      "person": 1,
+      "place": 2,
+      "association_date": "1883-05-01",
+      "association_type": "via_event"
+    }
+  },
+  {
+    "model": "core.personplace",
+    "pk": 2,
+    "fields": {
+      "person": 2,
+      "place": 3,
+      "association_date": "1883-11-20",
+      "association_type": "via_event"
+    }
+  },
+  {
+    "model": "core.personplace",
+    "pk": 3,
+    "fields": {
+      "person": 3,
+      "place": 4,
+      "association_date": "1862-02-15",
+      "association_type": "via_event"
+    }
+  },
+  {
+    "model": "core.personplace",
+    "pk": 4,
+    "fields": {
+      "person": 4,
+      "place": 1,
+      "association_date": "1872-09-10",
+      "association_type": "via_event"
+    }
+  },
+  {
+    "model": "core.personplace",
+    "pk": 5,
+    "fields": {
+      "person": 5,
+      "place": 5,
+      "association_date": "1910-04-18",
+      "association_type": "via_event"
+    }
+  }
+]

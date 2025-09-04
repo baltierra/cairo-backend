@@ -80,10 +80,13 @@ STATIC_URL = "static/"
 STATIC_ROOT = BASE_DIR / "static"
 
 LANGUAGE_CODE = "en-us"
-TIME_ZONE = "UTC"
+TIME_ZONE = "America/Chicago"
 USE_I18N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+MEDIA_URL = "/media/"
+MEDIA_ROOT = BASE_DIR / "media"
 
 # --- DRF / JWT / OpenAPI
 REST_FRAMEWORK = {
