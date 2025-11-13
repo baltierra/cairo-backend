@@ -46,11 +46,11 @@
       // 📅 The date construction or use of the site began.
       // Format: "YYYY-MM-DD" or null if unknown.
       // Example: "1883-05-01"
-      "date_start": "1856",
+      "date_start": "1856-01-01",
 
       // 📅 The date the site ceased operation, was demolished, or lost significance.
       // Format: "YYYY-MM-DD" or null if still standing or unknown.
-      "date_end": "1885",
+      "date_end": "1885-01-01",
 
       // -------------------------------------------------------------------
       // META INFORMATION (AUTOMATICALLY MANAGED)

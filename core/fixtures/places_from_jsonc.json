@@ -7,7 +7,7 @@
       "longitude": 89.17884885865348,
       "brief": "Founded in the 1870s by Northern Free Will Baptists, this institute educated formerly enslaved people and later became a private residence",
       "history": "Located at 2044 MLK (formerly Walnut St.), Cairo was the northern terminus of the famed Underground Railroad. The Northern Free Will Baptists from New England established Manning Bible Institute to evangelize the formerly enslaved. Purchased by Berlene Jones in 1975, and still privately owned by the Jones family today.",
-      "date_start": "1870",
+      "date_start": "1870-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -21,7 +21,7 @@
       "longitude": 89.17188411078594,
       "brief": "Built in 1872, this Custom House served as Cairo\u2019s post office and tariff center\u2014home to John Bird, a pioneering Black federal employee and community leader",
       "history": "The Cairo Custom House, built in 1872 by the talented architect Alfred Mullett, is quite a historic gem and is even listed on the National Register of Historic Places. This place was key for collecting tariffs on imports that were traded along the Mississippi River and was one of the first post offices in Cairo. A hidden piece of history involves John Bird, who was an African American applied for a federal job at the post office in 1879. He was initially turned down but eventually got hired. Bird became well-known for his leadership in the Black community and was the first Black trustee at the University of Illinois. Plus, this Custom House is the only building left in the state where he worked or lived, making it even more special!",
-      "date_start": "1872",
+      "date_start": "1872-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -35,7 +35,7 @@
       "longitude": 89.17558023907814,
       "brief": "\u201cFounded in 1932, this club fostered Black community life through arts, music, and scholarships\u2014rebuilt after a 1984 fire",
       "history": "The club was organized in 1932 to provide a wholesome social setting for the Black community in Cairo and its surrounding areas. Over the years, the club provided entertainment in the form of fashion shows, music, arts, and poetry readings. Members of the club also provided educational scholarships to students in Alexander and Pulaski counties. The original building burned down in 1984 but was rebuilt in the same location by the club membership.",
-      "date_start": "1932",
+      "date_start": "1932-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -49,7 +49,7 @@
       "longitude": 89.17747294145683,
       "brief": "Founded in the 1960s, Twin Rivers Park offered Cairo\u2019s Black youth a safe, vibrant space for community baseball and summer recreation.",
       "history": "Located at 32nd and Commercial, it was the favorite summertime entertainment for the Black community in Cairo during the 1960s. The league, developed by Henry Holmes and other outstanding members of the Black community, provided young Black boys with an opportunity to play baseball in a safe environment. The league had both Little League and Pony Leagues. Black standout Frank \u201cChip\u201d McAllister, who played in Negro Black Baseball League for such teams as the New York Black Yankees and New York Brown Dodgers, played a role in the league.",
-      "date_start": "1960",
+      "date_start": "1960-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -63,8 +63,8 @@
       "longitude": 89.17145329317475,
       "brief": "Founded in 1867, this historic Black Baptist church was home to Rev. Charles Koen and later became Harvest Christian Community Church",
       "history": " One of the first Black Baptist churches organized in Cairo in 1867 by Rev. Sheard. It was also the church home of Rev. Charles Koen. During the late 60s and early 70s, he preached at the church. The building was destroyed by a tornado in 2008, and the congregation moved shortly afterwards to their current location  727 37th Street. In 2018, the congregation changed the name to Harvest Christian Community Church.",
-      "date_start": "1867",
-      "date_end": "2008",
+      "date_start": "1867-01-01",
+      "date_end": "2008-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -77,8 +77,8 @@
       "longitude": 89.17567290118774,
       "brief": "Once the heart of Black business and culture in Cairo, Popular Street thrived with schools, caf\u00e9s, and music during segregation",
       "history": "This street is located on the east side of Washington Avenue. The avenue provided education, entertainment, and food for many during Cairo\u2019s segregated history. Included the likes of Sumner High School, Mr. B\u2019s Entertainment, Booker\u2019s Restaurant, Arthur Cook Records, Williams Barber Shop, and the Star Caf\u00e9.",
-      "date_start": "1920",
-      "date_end": "1970",
+      "date_start": "1920-01-01",
+      "date_end": "1970-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -91,8 +91,8 @@
       "longitude": 89.17797532892108,
       "brief": "Once Cairo\u2019s public pool, this site became a focal point of 1960s civil rights protests against segregation.",
       "history": "Constructed in 1939 at 2400 Sycamore Street, the Cairo City Pool served as a public recreation site during a time when the city\u2019s facilities were racially segregated. The pool became a central symbol of exclusion and resistance during the 1960s Civil Rights Movement. In 1962, activists and community leaders, including Congressman John Lewis and members of the Student Nonviolent Coordinating Committee (SNCC), knelt in protest at this site, demanding equal access for Black residents. Their efforts drew national attention to the broader struggle for civil rights in Cairo. The pool was ultimately closed in the early 1970s following federal desegregation mandates. Today, the site stands as a reminder of both the injustices of segregation and the courage of those who fought to end it.",
-      "date_start": "1939",
-      "date_end": "1970",
+      "date_start": "1939-01-01",
+      "date_end": "1970-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -105,7 +105,7 @@
       "longitude": 89.16509556695408,
       "brief": "Located on 8th Street, this park commemorates Cairo\u2019s rich Black heritage and the community\u2019s century-long struggle for freedom and justice",
       "history": "Centennial Heritage Park, located on 8th Street between Halliday and Ohio Streets, honors the enduring legacy of Cairo\u2019s Black community. Established in the early 1970s, the park commemorates a century of resilience, from emancipation and migration to the Civil Rights Movement. It occupies land near key historical sites, including the Old City Hall and St. Columba School, both central to local organizing and activism. Over the years, Centennial Park has served as a gathering place for cultural events, memorials, and community celebrations that highlight the shared history of struggle and achievement in Cairo. Today, it stands as a living monument to the generations who built and sustained the city\u2019s Black heritage.",
-      "date_start": "1972",
+      "date_start": "1972-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -119,7 +119,7 @@
       "longitude": 89.18665425248633,
       "brief": "Founded in the early 1900s as a Black suburb of Cairo, Future City was twice rebuilt after devastating floods and remains a symbol of resilience.",
       "history": "Future City is an unincorporated community in Cache Precinct, Alexander County, Illinois, located along U.S. Route 51 north of Cairo and south of Urbandale. Founded in the early 1900s as a predominantly African American suburb of Cairo, the town reflected the determination of Black residents to build a self-sustaining community despite racial and economic challenges. Future City was severely damaged during a flood in 1912 but was quickly rebuilt by its residents. The following year, the Great Flood of 1913 devastated the area again, destroying or moving nearly every structure in town. Despite repeated hardships, the community\u2019s resilience endured. Although only a few residents remain today, Future City stands as a lasting testament to Black perseverance, land ownership, and community-building in southern Illinois.",
-      "date_start": "1890",
+      "date_start": "1890-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -147,7 +147,7 @@
       "longitude": 89.17455478764747,
       "brief": "The AME Church aided freedom seekers and fueled the Civil Rights Movement.",
       "history": "Established in 1863, the AME Church in Cairo addressed the physical and spiritual needs of freedmen in the area. With a rich history of activism it played a critical role in helping enslaved persons get to freedom and later on supported the Civil Rights Movement.  Notable figures associated with the church include John Bird, Maria Renfro, Frederick Douglass, Hattie Kendrick, Rev. Ramsey, Rev. Charles Koen, John R. Lewis, Supreme Court Justice Thurgood Marshall, Rev. Jesse Jackson, and James Clark. It is listed on the National Register of Historic Places.",
-      "date_start": "1863",
+      "date_start": "1863-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -161,8 +161,8 @@
       "longitude": 89.17345571683614,
       "brief": "Once a freedom seekers\u2019 camp, later a hub of Cairo\u2019s civil rights movement.",
       "history": "Also known as the Cairo Contraband Camp, this site, located between 12th and 11th Streets, was a crucial destination for thousands of freedom seekers escaping enslavement from 1861 to 1865. The camp featured 33 barracks, a school for children, a hospital, and a mess hall, and is a designated site within the National Park Service\u2019s Network to Freedom. This land was also the site of the former Pyramid Courts housing projects, which were later renamed as McBride Public Housing. Following the passage of the 1937 U.S. Housing Act. Under President Franklin D. Roosevelt's New Deal administration, the federal government committed to clearing urban slums and collaborating with local authorities to develop better public housing options for American workers. The construction of two public housing complexes in Cairo began during World War II. Similar to other cities, the federal housing initiatives in Cairo adhered to existing patterns of racial segregation. Elmwood Place was designated for white residents, while Pyramid Court (later renamed McBride) was allocated for African Americans. Race also played a crucial role in site selection and the quality of property development. Elmwood Place was constructed from brick and situated in an uptown area that featured a mixed-income residential neighbourhood on Elm Street, between 37th and 40th Streets. In contrast, Pyramid Court consisted of less expensive wood-frame buildings located downtown in a low-lying, flood-prone area adjacent to the Mississippi River levee, on Cedar Street between 12th and 15th Streets. Pyramid Court, however, was also a place of strong community ties, marked by solidarity and Black joy. Families and children grew up in an environment of mutual care, support and social organization.  By the late 1960s, the housing project became a central point for the black freedom movements, as its working-class inhabitants stepped up as leaders in a significant citywide campaign for racial justice. In 1969, Rev. Charles Koen, who was raised and born in Pyramid Court together with other residents of Cairo formed the United Front, launching lawsuits and initiating an economic boycott to promote fair housing, unbiased hiring practices, and equal legal protections.",
-      "date_start": "1861",
-      "date_end": "1970",
+      "date_start": "1861-01-01",
+      "date_end": "1970-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -175,8 +175,8 @@
       "longitude": 89.17455478764747,
       "brief": "Built in 1856, this depot became a Civil War hub\u2014aid for freedom seekers, troop recruitment, and the contraband train.",
       "history": "As the Civil War escalated, this depot built in 1856 became a hub for migration to Cairo, facilitating escapes via the Underground Railroad, serving as a military recruitment center for freedom seekers, and accommodating the contraband train from the Battle of Shiloh. The designated site is part of the National Park Service Network to Freedom.",
-      "date_start": "1856",
-      "date_end": "1885",
+      "date_start": "1856-01-01",
+      "date_end": "1885-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -189,7 +189,7 @@
       "longitude": -89.1763828870841,
       "brief": "Founded in 1872, this church became a hub for Black community uplift and the 1940s fight for equal pay for educators",
       "history": "First Missionary Baptist Church (FMBC) has been a cornerstone of support for the Black community since it was founded in 1872. Back in the 1940s, with leaders like Henry Dyson and Hattie Kendrick from Ward Chapel AME, the church really stepped up to make a difference. They were a crucial part of a landmark lawsuit against the Cairo School District that aimed for equal pay for Black educators. Thurgood Marshall, who would later become a famous civil rights attorney with the NAACP, was involved too. FMBC has always been about lifting up the community, both physically and spiritually!",
-      "date_start": "1872",
+      "date_start": "1872-01-01",
       "date_end": null,
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
@@ -203,8 +203,8 @@
       "longitude": 89.17244097453316,
       "brief": "From 1928 to 1962, St. Columba School educated Black students and later became a hub for civil rights organizing",
       "history": "St. Columba School played a pivotal role in the education of Black students from 1928 until its closure in 1962. This institution not only provided parochial education but also fostered a sense of community and empowerment among its students during a time of significant social challenges. After its closure, students were given the opportunity to continue their education at St. Joseph\u2019s Grade and Junior High School, ensuring that their academic journey could persist. In the years that followed, the church and school transitioned to become the headquarters for the United Front, led by Charles Koen, from the late 1960s to the 1970s, further advocacy in shaping the future of the community's children.",
-      "date_start": "1928",
-      "date_end": "1962",
+      "date_start": "1928-01-01",
+      "date_end": "1962-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -217,8 +217,8 @@
       "longitude": 89.15178227135759,
       "brief": "Highway 51 linked Cairo to Chicago, serving as a key route for the Great Migration and earning the city the title \u2018Gateway to the South.",
       "history": "This road played a crucial role during the Great Migration, as it facilitated the movement of people seeking a better life. With railroads passing through Cairo and Highway 51 leading north to Chicago and beyond, it became a central hub for those seeking new opportunities. Until the opening of the 1970s interstate system, Cairo was known as the Gateway to the South, as Hwy 51 through the city was the only north / south route available in the tri-state area. ",
-      "date_start": "1919",
-      "date_end": "1970",
+      "date_start": "1919-01-01",
+      "date_end": "1970-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
@@ -231,8 +231,8 @@
       "longitude": 89.16662397485051,
       "brief": "Cairo\u2019s former City Hall, center of government until the 1970s and site of civil rights protests led by John Lewis and SNCC",
       "history": " Located at 10th Street, adjacent to Ohio Street and Halliday Street, it was the central location for city government up until the early 1970s. It is a location where Congressman John Lewis and others knelt to protest the segregated swimming pool in Cairo, as well as the famed poster \u201cLet\u2019s Come and Build a World Together\u201d by the Student Nonviolent Coordinating Committee.",
-      "date_start": "1883",
-      "date_end": "1970",
+      "date_start": "1883-01-01",
+      "date_end": "1970-01-01",
       "date_added": "2025-01-01T00:00:00Z",
       "date_modified": "2025-01-01T00:00:00Z"
     }
