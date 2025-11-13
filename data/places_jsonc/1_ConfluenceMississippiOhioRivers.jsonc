@@ -1,0 +1,68 @@
+[
+  {
+    // =====================================================================
+    // ⚠️ DO NOT MODIFY the fields below
+    // These identify the Django model and primary key for import.
+    // =====================================================================
+
+    // Django model path: always "core.historicplace"
+    "model": "core.historicplace",
+
+    // Primary key (integer). Leave as 0 or a temporary number.
+    // The maintainer will update these before loading into the database.
+    "pk": 0,
+
+    // =====================================================================
+    // 🏛️ HISTORIC PLACE DATA TO FILL IN
+    // Everything inside "fields" below should be filled by the contributor.
+    // =====================================================================
+
+    "fields": {
+      // -------------------------------------------------------------------
+      // BASIC INFORMATION
+      // -------------------------------------------------------------------
+
+      // 📍 The official or commonly used name of the historic place.
+      // Example: "Magnolia Manor" or "Old Custom House"
+      "place_name": "Confluence of the Mississippi and Ohio Rivers",
+
+      // 🧭 Decimal latitude coordinate of the site.
+      // Must be within Cairo, IL bounds: 36.968086 → 37.026953
+      "latitude": 36.98413175285522,
+
+      // 🧭 Decimal longitude coordinate of the site.
+      // Must be within Cairo, IL bounds: -89.218329 → -89.126957
+      "longitude": 89.13911419458668,
+
+      // 📝 A short (1–2 sentence) description of the place.
+      // This appears as the tooltip on the map. Keep it concise (<200 characters).
+      "brief": "Civil War hub and freedom route for the formerly enslaved.",
+
+      // 📖 The detailed historical description.
+      // Can include multiple paragraphs. Describe the significance,
+      // construction, important dates, and people/events related.
+      "history": "This strategic point during the Civil War served as a vital hub in the waterway network, facilitating the Union Army as well as the escape/rescue of thousands of formerly enslaved African Americans fleeing oppression in the South. It is recognized as one of the top ten confluences globally.",
+
+      // 📅 The date construction or use of the site began.
+      // Format: "YYYY-MM-DD" or null if unknown.
+      // Example: "1883-05-01"
+      "date_start": null,
+
+      // 📅 The date the site ceased operation, was demolished, or lost significance.
+      // Format: "YYYY-MM-DD" or null if still standing or unknown.
+      "date_end": null,
+
+      // -------------------------------------------------------------------
+      // META INFORMATION (AUTOMATICALLY MANAGED)
+      // -------------------------------------------------------------------
+
+      // ⚙️ DO NOT EDIT: the timestamp when the record was added.
+      // Used internally for ordering and tracking.
+      "date_added": "2025-01-01T00:00:00Z",
+
+      // ⚙️ DO NOT EDIT: last modification timestamp.
+      // Will be updated automatically in production.
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  }
+]
