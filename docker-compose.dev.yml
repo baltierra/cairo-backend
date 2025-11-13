@@ -1,0 +1,22 @@
+services:
+  web:
+    # For now we build from the local repo on the dev VM.
+    # Later, when GHCR is set up, we'll switch to:
+    # image: ghcr.io/baltierra/cairo-backend:dev
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env.dev
+    ports:
+      - "8000:8000"
+    volumes:
+      # SQLite DB lives under /data inside the container
+      - dev_db:/data
+      # Media uploads (Photo.image) live under /app/media
+      - dev_media:/app/media
+    restart: unless-stopped
+
+volumes:
+  dev_db:
+  dev_media:
