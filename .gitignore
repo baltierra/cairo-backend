@@ -23,11 +23,14 @@ docs/
 __pycache__/
 *.py[cod]
 *.pyc
+*.pyo
+*.pyd
 
 # Virtual env (when using in-project venvs)
 .venv/
 
 # Env files
+*.env
 .env
 .env.*
 !.env.example
