@@ -74,8 +74,8 @@ ASGI_APPLICATION = "config.asgi.application"
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
-        # If DB_PATH is absolute (e.g. /data/db.sqlite3 in Docker),
-        # Path handling will honor that; if it's relative, it's BASE_DIR / DB_PATH.
+        # If DB_PATH is absolute (e.g. /data/db.sqlite3 in Docker), Path
+        # handling will honor that; if it's relative, it's BASE_DIR / DB_PATH.
         "NAME": str((BASE_DIR / env("DB_PATH")).resolve()),
         "OPTIONS": {"timeout": 30},
     }
@@ -128,7 +128,11 @@ SIMPLE_JWT = {
 }
 
 # --- CORS
-CORS_ALLOWED_ORIGINS = [
-    o.strip() for o in env("CORS_ALLOWED_ORIGINS").split(",") if o.strip()
-]
-CORS_ALLOW_CREDENTIALS = True
+# --- CSRF trusted origins (for HTTPS behind a proxy)
+_csrf_origins = env("CSRF_TRUSTED_ORIGINS", default="")
+if _csrf_origins:
+    CSRF_TRUSTED_ORIGINS = [
+        o.strip() for o in _csrf_origins.split(",") if o.strip()
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = []
