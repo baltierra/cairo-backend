@@ -26,6 +26,11 @@ __pycache__/
 *.pyo
 *.pyd
 
+# Django build output
+staticfiles/
+staticfiles/*
+!staticfiles/.gitkeep
+
 # Virtual env (when using in-project venvs)
 .venv/
 

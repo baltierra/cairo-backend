@@ -1,5 +1,5 @@
 // Config
-const API_BASE = window.API_BASE || "http://127.0.0.1:8000/api/v1";
+const API_BASE = window.API_BASE || `${window.location.origin}/api/v1`;
 
 // Elements
 const elMap = document.getElementById("map");
