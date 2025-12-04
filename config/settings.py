@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import os
 from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -129,10 +130,11 @@ SIMPLE_JWT = {
 
 # --- CORS
 # --- CSRF trusted origins (for HTTPS behind a proxy)
-_csrf_origins = env("CSRF_TRUSTED_ORIGINS", default="")
-if _csrf_origins:
+_raw_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+
+if _raw_csrf:
     CSRF_TRUSTED_ORIGINS = [
-        o.strip() for o in _csrf_origins.split(",") if o.strip()
+        o.strip() for o in _raw_csrf.split(",") if o.strip()
     ]
 else:
     CSRF_TRUSTED_ORIGINS = []

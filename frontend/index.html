@@ -28,6 +28,7 @@
     <div class="view-toggle">
       <button id="btnMap" class="toggle-btn active">Map</button>
       <button id="btnList" class="toggle-btn">List</button>
+      <button id="btnOral" class="toggle-btn">Oral Archive</button>
     </div>
   </header>
 
@@ -40,18 +41,38 @@
 
   <!-- Intro Modal -->
   <div id="introOverlay" class="modal-overlay visible">
-    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="introTitle">
-      <button class="modal-close" aria-label="Close" data-close-intro>&times;</button>
-      <h2 id="introTitle">Welcome to Cairo’s Historic Places</h2>
-      <p id="introText">
-        This project documents historic locations in Cairo, Illinois, with images, events,
-        and notable people. (Replace this text with your acknowledgements and sponsor credits.)
-      </p>
-      <div class="modal-actions">
-        <button class="btn primary" data-close-intro>Explore the map</button>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="introTitle">
+    <button class="modal-close" aria-label="Close" data-close-intro>&times;</button>
+    <h2 id="introTitle">The Cairo African American Heritage Trail and Oral History Archive</h2>
+
+    <p id="introText">
+      This initiative is led by The Cairo Historical Preservation Project, Inc., in partnership with
+      the University of Illinois Urbana-Champaign and Southern Illinois University Carbondale.
+      The project empowers residents and guests to discover the history that defines Cairo’s
+      vibrant African American community in the very places where it happened, through
+      historical markers around the city and archival documentation and interviews accessible
+      online. This introductory video explains the landmarks that the community has identify
+      as significant for Cairo’s Black history.
+    </p>
+
+    <!-- NEW: centered YouTube video -->
+    <div class="intro-video">
+      <div class="intro-video-inner">
+        <iframe
+          class="intro-video-frame"
+          src="https://www.youtube.com/embed/NBSi16skX3U"
+          title="Introductory video about Cairo's African American Heritage Trail"
+          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+          allowfullscreen
+        ></iframe>
       </div>
     </div>
+
+    <div class="modal-actions">
+      <button class="btn primary" data-close-intro>Explore the map</button>
+    </div>
   </div>
+</div>
 
   <!-- Place Modal (level 1) -->
   <div id="placeOverlay" class="modal-overlay">
@@ -80,6 +101,30 @@
           <h3>People associated</h3>
           <ul id="placePersons" class="link-list"></ul>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Oral Archive Modal -->
+  <div id="oralOverlay" class="modal-overlay">
+    <div class="modal modal-lg" role="dialog" aria-modal="true" aria-labelledby="oralTitle">
+      <button class="modal-close" aria-label="Close" data-close-oral>&times;</button>
+
+      <h2 id="oralTitle">Oral History Archive</h2>
+
+      <p id="oralIntro">
+        Select a person below to listen to their interview:
+      </p>
+
+      <div class="oral-controls">
+        <label for="oralSelect">Interviewee</label>
+        <select id="oralSelect">
+          <option value="">-- Choose an interviewee --</option>
+        </select>
+      </div>
+
+      <div class="oral-video mt" id="oralVideoContainer">
+        <!-- Video iframe will be injected here when an interview is selected -->
       </div>
     </div>
   </div>

@@ -8,6 +8,7 @@ from .models import (
     EventPerson,
     PlacePhoto,
     EventPhoto,
+    HistoricInterview,
 )
 
 
@@ -90,3 +91,21 @@ class EventPersonAdmin(admin.ModelAdmin):
     list_display = ("id", "event", "person", "role")
     search_fields = ("role",)
     autocomplete_fields = ("event", "person")
+
+
+@admin.register(HistoricInterview)
+class HistoricInterviewAdmin(admin.ModelAdmin):
+    list_display = (
+        "interviewee_name",
+        "interviewer_name",
+        "interview_date",
+        "youtube_url",
+        "created_at",
+    )
+    search_fields = (
+        "interviewee_name",
+        "interviewer_name",
+        "brief_description",
+    )
+    list_filter = ("interview_date",)
+    ordering = ("-interview_date", "interviewee_name")

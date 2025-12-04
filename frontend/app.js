@@ -1,5 +1,9 @@
 // Config
 const API_BASE = window.API_BASE || `${window.location.origin}/api/v1`;
+console.log("API_BASE is:", API_BASE);
+
+// Cache for interviews
+let interviewsCache = [];
 
 // Elements
 const elMap = document.getElementById("map");
@@ -7,6 +11,11 @@ const elList = document.getElementById("list");
 const elPlacesList = document.getElementById("placesList");
 const btnMap = document.getElementById("btnMap");
 const btnList = document.getElementById("btnList");
+const btnOral = document.getElementById("btnOral");
+const oralOverlay = document.getElementById("oralOverlay");
+const oralSelect = document.getElementById("oralSelect");
+const oralVideoContainer = document.getElementById("oralVideoContainer");
+
 
 // Intro modal
 const introOverlay = document.getElementById("introOverlay");
@@ -44,6 +53,34 @@ document.querySelector("[data-close-detail]").addEventListener("click", () => {
 // View toggle
 btnMap.addEventListener("click", () => setView("map"));
 btnList.addEventListener("click", () => setView("list"));
+
+// Open Oral Archive modal
+if (btnOral && oralOverlay) {
+  btnOral.addEventListener("click", async () => {
+    oralOverlay.classList.add("visible");
+    await loadInterviews();
+  });
+}
+
+// Close Oral Archive modal
+document.querySelectorAll("[data-close-oral]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    oralOverlay.classList.remove("visible");
+    if (oralVideoContainer) oralVideoContainer.innerHTML = "";
+    if (oralSelect) oralSelect.value = "";
+  });
+});
+
+// When an interviewee is selected, show their video
+if (oralSelect) {
+  oralSelect.addEventListener("change", () => {
+    const selectedId = oralSelect.value;
+    const interview = interviewsCache.find(
+      (iv) => String(iv.id) === selectedId
+    );
+    renderOralVideo(interview);
+  });
+}
 
 function setView(mode) {
   if (mode === "map") {
@@ -168,6 +205,20 @@ function openPlaceModal(placeId) {
         placePersons.appendChild(li);
       });
 
+      // Show/hide Events / People sections based on content
+      const eventsCol = placeEvents.closest(".col");
+      const personsCol = placePersons.closest(".col");
+
+      if (eventsCol) {
+        eventsCol.style.display =
+          placeEvents.children.length > 0 ? "block" : "none";
+      }
+
+      if (personsCol) {
+        personsCol.style.display =
+          placePersons.children.length > 0 ? "block" : "none";
+      }
+
       placeOverlay.classList.add("visible");
     })
     .catch(err => {
@@ -282,6 +333,113 @@ function openPersonModal(personId) {
       detailOverlay.classList.add("visible");
     })
     .catch(() => alert("Could not load person details."));
+}
+
+function makeYoutubeEmbed(url) {
+  if (!url) return null;
+  try {
+    const u = new URL(url);
+    if (u.hostname.includes("youtube.com")) {
+      const v = u.searchParams.get("v");
+      if (v) return `https://www.youtube.com/embed/${v}`;
+    }
+    if (u.hostname === "youtu.be") {
+      const id = u.pathname.slice(1);
+      if (id) return `https://www.youtube.com/embed/${id}`;
+    }
+  } catch (e) {
+    console.warn("Invalid YouTube URL:", url);
+  }
+  return null;
+}
+
+async function loadInterviews() {
+  // Only fetch once per page load
+  if (interviewsCache.length > 0) return;
+
+  try {
+    const url = `${API_BASE}/interviews/`;
+    console.log("Fetching interviews from:", url);
+
+    const resp = await fetch(url);
+
+    if (!resp.ok) {
+      const text = await resp.text().catch(() => "");
+      console.error("Interviews HTTP error:", resp.status, text);
+      throw new Error(`Failed with status ${resp.status}`);
+    }
+
+    const raw = await resp.json();
+    console.log("Raw interviews JSON:", raw);
+
+    // ✅ Handle:
+    //  - paginated: { count, next, previous, results: [...] }
+    //  - plain array: [ ... ]
+    const items = Array.isArray(raw) ? raw : raw.results || [];
+
+    if (!Array.isArray(items)) {
+      console.error("Interviews JSON not an array:", items);
+      throw new Error("Interviews payload is not an array");
+    }
+
+    interviewsCache = items;
+    console.log("Interviews cache:", interviewsCache);
+
+    populateOralSelect();
+  } catch (err) {
+    console.error("Failed to load interviews", err);
+    alert("Could not load interviews. Please try again later.");
+  }
+}
+
+function populateOralSelect() {
+  if (!oralSelect) return;
+
+  // Reset dropdown
+  oralSelect.innerHTML =
+    '<option value="">-- Choose an interviewee --</option>';
+
+  // ✅ interviewsCache is guaranteed to be an array here
+  const sorted = interviewsCache.slice().sort((a, b) =>
+    (a.interviewee_name || "").localeCompare(b.interviewee_name || "")
+  );
+
+  for (const iv of sorted) {
+    const opt = document.createElement("option");
+    opt.value = String(iv.id);
+    opt.textContent = iv.interviewee_name || `(Interview ${iv.id})`;
+    oralSelect.appendChild(opt);
+  }
+}
+
+function renderOralVideo(interview) {
+  if (!oralVideoContainer) return;
+  oralVideoContainer.innerHTML = "";
+
+  if (!interview || !interview.youtube_url) {
+    return;
+  }
+
+  const embedUrl = makeYoutubeEmbed(interview.youtube_url);
+  if (!embedUrl) {
+    const msg = document.createElement("p");
+    msg.textContent = "This interview does not have a valid YouTube link.";
+    oralVideoContainer.appendChild(msg);
+    return;
+  }
+
+  const wrapper = document.createElement("div");
+  wrapper.className = "oral-video-inner";
+
+  const iframe = document.createElement("iframe");
+  iframe.src = embedUrl;
+  iframe.title = `Interview with ${interview.interviewee_name || "interviewee"}`;
+  iframe.allow =
+    "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+  iframe.allowFullscreen = true;
+
+  wrapper.appendChild(iframe);
+  oralVideoContainer.appendChild(wrapper);
 }
 
 // Small utilities

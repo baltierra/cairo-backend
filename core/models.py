@@ -6,6 +6,7 @@ from django.core.validators import (
 )
 from django.core.exceptions import ValidationError
 from django.db.models import F, Q
+from .validators import validate_partial_date
 
 
 class Photo(models.Model):
@@ -103,8 +104,18 @@ class HistoricPlace(models.Model):
         max_digits=11, decimal_places=8,
         validators=[MinValueValidator(-180), MaxValueValidator(180)]
     )
-    date_start = models.DateField(null=True, blank=True)
-    date_end = models.DateField(null=True, blank=True)
+    date_start = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[validate_partial_date],
+    )
+    date_end = models.CharField(
+        max_length=20,
+        null=True,
+        blank=True,
+        validators=[validate_partial_date],
+    )
     brief = models.CharField(max_length=250, blank=True)
     history = models.TextField(
         blank=True,
@@ -280,3 +291,47 @@ class EventPhoto(models.Model):  # NEW
 
     def __str__(self):
         return f"Photo {self.photo_id} for {self.event} (#{self.photo_order})"
+
+
+class HistoricInterview(models.Model):
+    """
+    Metadata for oral history / research interviews.
+    We do NOT store the video file itself, only its YouTube URL and context.
+    """
+
+    interviewee_name = models.CharField(
+        max_length=100,
+        help_text="Name of the person being interviewed.",
+    )
+    interviewer_name = models.CharField(
+        max_length=100,
+        blank=True,
+        help_text="Name of the person conducting the interview.",
+    )
+
+    brief_description = models.TextField(
+        blank=True,
+        help_text="Short description of the interview content.",
+        validators=[MaxLengthValidator(5000)],
+    )
+
+    interview_date = models.DateField(
+        help_text="Date when the interview was recorded.",
+    )
+
+    youtube_url = models.URLField(
+        help_text="Public YouTube URL where the interview video is hosted.",
+    )
+
+    created_at = models.DateTimeField(auto_now_add=True)
+    modified_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        ordering = ["-interview_date", "interviewee_name"]
+        indexes = [
+            models.Index(fields=["interview_date"]),
+            models.Index(fields=["interviewee_name"]),
+        ]
+
+    def __str__(self) -> str:
+        return f"{self.interviewee_name} ({self.interview_date})"

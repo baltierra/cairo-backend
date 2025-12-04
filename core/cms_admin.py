@@ -1,9 +1,10 @@
 # core/cms_admin.py
 from django.contrib.admin import AdminSite
 from .models import (
-    HistoricPlace, HistoricEvent, HistoricPerson, Photo)
+    HistoricPlace, HistoricEvent, HistoricPerson, Photo, HistoricInterview)
 from .admin import (
-    HistoricPlaceAdmin, HistoricEventAdmin, HistoricPersonAdmin, PhotoAdmin
+    HistoricPlaceAdmin, HistoricEventAdmin, HistoricPersonAdmin, PhotoAdmin,
+    HistoricInterviewAdmin
 )
 
 
@@ -45,3 +46,4 @@ content_admin_site.register(HistoricPlace, HistoricPlaceAdmin)
 content_admin_site.register(HistoricEvent, HistoricEventAdmin)
 content_admin_site.register(HistoricPerson, HistoricPersonAdmin)
 content_admin_site.register(Photo, HiddenPhotoAdmin)
+content_admin_site.register(HistoricInterview, HistoricInterviewAdmin)

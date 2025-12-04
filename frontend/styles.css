@@ -1,3 +1,27 @@
+@font-face {
+  font-family: "Atlas Grotesk";
+  src: url("./fonts/AtlasGrotesk-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atlas Grotesk";
+  src: url("./fonts/AtlasGrotesk-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atlas Grotesk";
+  src: url("./fonts/AtlasGrotesk-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #fff;
   --fg: #111;
@@ -9,7 +33,16 @@
 
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
-body { font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; color: var(--fg); background: var(--bg); }
+
+body {
+  font-size: 14px;
+  line-height: 1.45;
+  font-family: "Atlas Grotesk", system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+
 h1, h2, h3 { margin: 0 0 8px; }
 
 .topbar {
@@ -36,15 +69,17 @@ main { height: calc(100vh - 56px); }
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,.35);
   display: none; place-items: center; padding: 16px; z-index: 1000;
+  backdrop-filter: blur(3px);
 }
 .modal-overlay.visible { display: grid; }
-.modal { background: #fff; border-radius: 12px; width: min(900px, 92vw); padding: 16px 18px; box-shadow: 0 10px 30px rgba(0,0,0,.2); position: relative; }
+.modal { background: #fff; border-radius: 14px; width: min(900px, 92vw); padding: 40px 50px; box-shadow: 0 20px 48px rgba(0,0,0,.2); position: relative; }
 .modal.modal-lg { width: min(1100px, 92vw); }
 .modal.modal-md { width: min(700px, 92vw); }
 .modal .modal-close {
   position: absolute; top: 8px; right: 10px; border: none; background: transparent; font-size: 22px; cursor: pointer;
 }
 .modal .modal-actions { text-align: right; margin-top: 12px; }
+
 .btn { border: 1px solid var(--border); background: var(--btn); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
 .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
 .mt { margin-top: 12px; }
@@ -62,4 +97,86 @@ main { height: calc(100vh - 56px); }
 
 .modal-overlay.level-2 { z-index: 1100; }
 
+/* Larger text inside modal */
+.modal p,
+.modal li,
+.modal div {
+  font-size: 1.05rem;
+  line-height: 1.50;
+}
+
+.modal h2,
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
 .leaflet-tooltip { pointer-events: none; }
+
+/* Intro modal video */
+.intro-video {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.intro-video-inner {
+  width: 100%;
+  max-width: 720px;         /* keeps it from getting too huge on big screens */
+  aspect-ratio: 16 / 9;     /* keeps the video in 16:9 */
+}
+
+.intro-video-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+/* Oral archive modal */
+.oral-controls {
+  margin-top: 8px;
+}
+
+.oral-controls label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+#oralSelect {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font: inherit;
+  background: #fff;
+}
+
+/* Video container */
+.oral-video {
+  margin-top: 16px;
+}
+
+/* Responsive 16:9 video wrapper */
+.oral-video-inner {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+
+.oral-video-inner iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  display: block;
+}

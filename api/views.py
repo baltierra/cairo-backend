@@ -13,6 +13,7 @@ from core.models import (
     EventPerson,
     EventPhoto,
     PlacePhoto,
+    HistoricInterview
 )
 from .serializers import (
     PhotoSerializer,
@@ -23,6 +24,7 @@ from .serializers import (
     EventPersonSerializer,
     EventPhotoSerializer,
     PlacePhotoSerializer,
+    HistoricInterviewSerializer
 )
 
 
@@ -76,6 +78,11 @@ class EventPhotoViewSet(BaseReadWrite):
 class PlacePhotoViewSet(BaseReadWrite):
     queryset = PlacePhoto.objects.select_related("place", "photo").all()
     serializer_class = PlacePhotoSerializer
+
+
+class HistoricInterviewViewSet(BaseReadWrite):
+    queryset = HistoricInterview.objects.all()
+    serializer_class = HistoricInterviewSerializer
 
 
 def places_geojson(request):
