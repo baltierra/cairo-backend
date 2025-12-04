@@ -437,7 +437,7 @@ function renderOralVideo(interview) {
   iframe.allow =
     "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
   iframe.allowFullscreen = true;
-
+  iframe.referrerPolicy = "strict-origin-when-cross-origin";
   wrapper.appendChild(iframe);
   oralVideoContainer.appendChild(wrapper);
 }
