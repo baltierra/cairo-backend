@@ -80,6 +80,14 @@ main { height: calc(100vh - 56px); }
 }
 .modal .modal-actions { text-align: right; margin-top: 12px; }
 
+/* Allow scrolling inside the place + detail modals when content is long */
+#placeOverlay .modal,
+#detailOverlay .modal {
+  max-height: 90vh;      /* don’t grow taller than the viewport */
+  overflow-y: auto;
+  padding-bottom: 24px;  /* a bit more breathing room at the bottom */      /* scroll inside the modal if needed */
+}
+
 .btn { border: 1px solid var(--border); background: var(--btn); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
 .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
 .mt { margin-top: 12px; }
