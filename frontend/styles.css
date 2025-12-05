@@ -180,3 +180,108 @@ main { height: calc(100vh - 56px); }
   box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
   display: block;
 }
+
+/* Feedback modal form */
+.feedback-form {
+  margin-top: 12px;
+}
+
+.feedback-form .field {
+  margin-bottom: 12px;
+}
+
+.feedback-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.feedback-form input[type="text"],
+.feedback-form input[type="email"],
+.feedback-form textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font: inherit;
+  resize: vertical;
+}
+
+.feedback-status {
+  margin-top: 4px;
+  min-height: 1.2em;
+  font-size: 0.9rem;
+}
+
+.feedback-status.ok {
+  color: #0a7a2f;
+}
+
+.feedback-status.error {
+  color: #b10f2e;
+}
+
+/* ---------- Guided tour tooltip ---------- */
+
+.tour-tooltip {
+  position: fixed;
+  max-width: 320px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  z-index: 1200;
+  font-size: 0.9rem;
+}
+
+.tour-tooltip-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.tour-tooltip-body {
+  margin-bottom: 8px;
+}
+
+.tour-tooltip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.tour-tooltip-step {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.tour-tooltip-buttons .btn-sm {
+  padding: 3px 8px;
+  font-size: 0.85rem;
+}
+
+/* Small button variant reusing your .btn style */
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+}
+
+/* Highlight the current UI element in the tour */
+.tour-highlight {
+  position: relative;
+  z-index: 1100;
+  box-shadow: 0 0 0 3px #b10f2e;
+  border-radius: 6px;
+}
+
+/* Highlight for both Map & List buttons simultaneously */
+.tour-dual-highlight {
+  outline: 3px solid #b10f2e;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* If you’d like, next we can:
+	•	Add a “Restart tour” link in the footer.
+	•	Make the tooltip arrowed (little triangle pointing to the button).
+	•	Add keyboard navigation (Esc to cancel, Enter for next). */

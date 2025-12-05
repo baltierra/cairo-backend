@@ -1,7 +1,9 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
+from django.conf import settings
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 
 from core.models import (
@@ -34,6 +36,62 @@ class HealthView(APIView):
 
     def get(self, request):
         return Response({"status": "ok"})
+
+
+class FeedbackView(APIView):
+    """
+    POST /api/v1/feedback/
+
+    Body (JSON):
+      {
+        "name": "...",    # optional
+        "email": "...",   # optional
+        "message": "..."  # required
+      }
+    """
+
+    authentication_classes = []  # no auth, no CSRF via SessionAuth
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        name = (request.data.get("name") or "").strip()
+        email = (request.data.get("email") or "").strip()
+        message = (request.data.get("message") or "").strip()
+
+        if not message:
+            return Response(
+                {"detail": "Message is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        subject = "Historic Cairo map feedback"
+
+        lines = []
+        if name:
+            lines.append(f"Name: {name}")
+        if email:
+            lines.append(f"Email: {email}")
+        if name or email:
+            lines.append("")
+        lines.append(message)
+
+        body = "\n".join(lines)
+
+        recipient = getattr(
+            settings,
+            "FEEDBACK_RECIPIENT",
+            "support@historicalcairo.com",
+        )
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [recipient],
+            fail_silently=False,
+        )
+
+        return Response({"detail": "Feedback sent."}, status=status.HTTP_200_OK)
 
 
 class BaseReadWrite(viewsets.ModelViewSet):

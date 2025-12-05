@@ -1,6 +1,6 @@
 // Config
 const API_BASE = window.API_BASE || `${window.location.origin}/api/v1`;
-console.log("API_BASE is:", API_BASE);
+// console.log("API_BASE is:", API_BASE);
 
 // Cache for interviews
 let interviewsCache = [];
@@ -11,16 +11,25 @@ const elList = document.getElementById("list");
 const elPlacesList = document.getElementById("placesList");
 const btnMap = document.getElementById("btnMap");
 const btnList = document.getElementById("btnList");
+
 const btnOral = document.getElementById("btnOral");
 const oralOverlay = document.getElementById("oralOverlay");
 const oralSelect = document.getElementById("oralSelect");
 const oralVideoContainer = document.getElementById("oralVideoContainer");
 
+const btnFeedback = document.getElementById("btnFeedback");
+const feedbackOverlay = document.getElementById("feedbackOverlay");
+const feedbackForm = document.getElementById("feedbackForm");
+const feedbackStatus = document.getElementById("feedbackStatus");
+
 
 // Intro modal
 const introOverlay = document.getElementById("introOverlay");
 document.querySelectorAll("[data-close-intro]").forEach((b) => {
-  b.addEventListener("click", () => introOverlay.classList.remove("visible"));
+  b.addEventListener("click", () => {
+    introOverlay.classList.remove("visible");
+    startTourIfNeeded();
+  });
 });
 
 // Place modal
@@ -50,6 +59,165 @@ document.querySelector("[data-close-detail]").addEventListener("click", () => {
   detailOverlay.classList.remove("visible");
 });
 
+// ---------- Guided tour state ----------
+// Steps: Map/List, Oral Archive, Feedback
+const tourSteps = [
+  {
+    id: "btnMap",  // Tooltip anchor stays the same
+    highlightBoth: true,   // NEW FIELD
+    title: "Map & List views",
+    body:
+      "Use these buttons to switch between the interactive map and a list of all historic places.",
+  },
+  {
+    id: "btnOral",
+    title: "Oral Archive",
+    body:
+      "Here you can listen to recorded interviews that document Cairo's African American history.",
+  },
+  {
+    id: "btnFeedback",
+    title: "Feedback",
+    body:
+      "Found an error or want to suggest a new place? Use this button to send us a message.",
+  },
+];
+
+let currentTourStep = 0;
+let tourTooltip = null;
+
+// Create tooltip element once
+function createTourTooltip() {
+  if (tourTooltip) return;
+
+  const div = document.createElement("div");
+  div.className = "tour-tooltip";
+  div.innerHTML = `
+    <div class="tour-tooltip-title"></div>
+    <div class="tour-tooltip-body"></div>
+    <div class="tour-tooltip-footer">
+      <span class="tour-tooltip-step"></span>
+      <div class="tour-tooltip-buttons">
+        <button type="button" class="btn btn-sm" data-tour-skip>Skip</button>
+        <button type="button" class="btn primary btn-sm" data-tour-next>Next</button>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(div);
+  tourTooltip = div;
+
+  const skipBtn = div.querySelector("[data-tour-skip]");
+  const nextBtn = div.querySelector("[data-tour-next]");
+
+  skipBtn.addEventListener("click", endTour);
+  nextBtn.addEventListener("click", () => {
+    const isLast = currentTourStep === tourSteps.length - 1;
+    if (isLast) {
+      endTour();
+    } else {
+      showTourStep(currentTourStep + 1);
+    }
+  });
+}
+
+function showTourStep(index) {
+  const step = tourSteps[index];
+  if (!step) {
+    endTour();
+    return;
+  }
+
+  const target = document.getElementById(step.id);
+  if (!target) {
+    // If this button doesn't exist, skip to next or end
+    if (index + 1 < tourSteps.length) {
+      showTourStep(index + 1);
+    } else {
+      endTour();
+    }
+    return;
+  }
+
+  currentTourStep = index;
+
+  createTourTooltip();
+  const tt = tourTooltip;
+
+  // Set text
+  tt.querySelector(".tour-tooltip-title").textContent = step.title;
+  tt.querySelector(".tour-tooltip-body").textContent = step.body;
+  tt.querySelector(
+    ".tour-tooltip-step"
+  ).textContent = `Step ${index + 1} of ${tourSteps.length}`;
+
+  const nextBtn = tt.querySelector("[data-tour-next]");
+  nextBtn.textContent = index === tourSteps.length - 1 ? "Finish" : "Next";
+
+  // Position tooltip near the target button (below, centered)
+  const rect = target.getBoundingClientRect();
+
+  // temporarily make visible to measure width if needed
+  tt.style.visibility = "hidden";
+  tt.style.display = "block";
+
+  const tooltipWidth = tt.offsetWidth;
+  let top = rect.bottom + 8;
+  let left = rect.left + rect.width / 2 - tooltipWidth / 2;
+
+  // Clamp to viewport
+  const margin = 8;
+  if (left < margin) left = margin;
+  const maxLeft = window.innerWidth - tooltipWidth - margin;
+  if (left > maxLeft) left = maxLeft;
+
+  tt.style.top = `${top}px`;
+  tt.style.left = `${left}px`;
+
+  tt.style.visibility = "visible";
+
+  // Highlight target button(s)
+  document.querySelectorAll(".tour-highlight, .tour-dual-highlight")
+    .forEach((el) => el.classList.remove("tour-highlight", "tour-dual-highlight"));
+
+  if (step.highlightBoth) {
+    // Step 1: highlight both Map + List
+    btnMap.classList.add("tour-dual-highlight");
+    btnList.classList.add("tour-dual-highlight");
+  } else {
+    // All other steps: regular single highlight
+    target.classList.add("tour-highlight");
+  }
+}
+
+function endTour() {
+  if (tourTooltip && tourTooltip.parentNode) {
+    tourTooltip.parentNode.removeChild(tourTooltip);
+    tourTooltip = null;
+  }
+  document
+    .querySelectorAll(".tour-highlight")
+    .forEach((el) => el.classList.remove("tour-highlight"));
+
+  // Remember that the tour was seen
+  try {
+    window.localStorage.setItem("cairoTourSeen", "1");
+  } catch (e) {
+    // ignore
+  }
+}
+
+function startTourIfNeeded() {
+  try {
+    const seen = window.localStorage.getItem("cairoTourSeen");
+    if (seen === "1") return;
+  } catch (e) {
+    // ignore storage errors and still run tour
+  }
+
+  showTourStep(0);
+}
+// ---------- Guided tour state ----------
+
 // View toggle
 btnMap.addEventListener("click", () => setView("map"));
 btnList.addEventListener("click", () => setView("list"));
@@ -68,6 +236,25 @@ document.querySelectorAll("[data-close-oral]").forEach((btn) => {
     oralOverlay.classList.remove("visible");
     if (oralVideoContainer) oralVideoContainer.innerHTML = "";
     if (oralSelect) oralSelect.value = "";
+  });
+});
+
+// Open Feedback modal
+if (btnFeedback && feedbackOverlay) {
+  btnFeedback.addEventListener("click", () => {
+    if (feedbackForm) feedbackForm.reset();
+    if (feedbackStatus) {
+      feedbackStatus.textContent = "";
+      feedbackStatus.className = "feedback-status";
+    }
+    feedbackOverlay.classList.add("visible");
+  });
+}
+
+// Close Feedback modal
+document.querySelectorAll("[data-close-feedback]").forEach((btn) => {
+  btn.addEventListener("click", () => {
+    feedbackOverlay.classList.remove("visible");
   });
 });
 
@@ -442,9 +629,66 @@ function renderOralVideo(interview) {
   oralVideoContainer.appendChild(wrapper);
 }
 
+// Feedback form -> POST to API /feedback/
+if (feedbackForm) {
+  feedbackForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(feedbackForm);
+    const name = (formData.get("name") || "").toString().trim();
+    const email = (formData.get("email") || "").toString().trim();
+    const message = (formData.get("message") || "").toString().trim();
+
+    if (!message) {
+      if (feedbackStatus) {
+        feedbackStatus.textContent = "Please enter a message before sending.";
+        feedbackStatus.className = "feedback-status error";
+      }
+      return;
+    }
+
+    try {
+      const resp = await fetch(`${API_BASE}/feedback/`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      if (!resp.ok) {
+        const data = await resp.json().catch(() => ({}));
+        const detail = data.detail || `Error ${resp.status}`;
+        throw new Error(detail);
+      }
+
+      if (feedbackStatus) {
+        feedbackStatus.textContent = "Thanks for your contribution!";
+        feedbackStatus.className = "feedback-status ok";
+      }
+
+      // Optional: clear message field after success
+      feedbackForm.reset();
+
+    } catch (err) {
+      console.error("Feedback error:", err);
+      if (feedbackStatus) {
+        feedbackStatus.textContent =
+          "Sorry, we could not send your message. Please try again later.";
+        feedbackStatus.className = "feedback-status error";
+      }
+    }
+  });
+}
+
 // Small utilities
 function escapeHtml(s) {
   return (s ?? "").toString().replace(/[&<>"']/g, c => ({
     "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#039;"
   })[c]);
+}
+
+// If intro is not visible on load, we can start the tour immediately
+if (!introOverlay || !introOverlay.classList.contains("visible")) {
+  startTourIfNeeded();
 }

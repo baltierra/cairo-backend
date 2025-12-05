@@ -10,7 +10,8 @@ from .views import (
     PhotoViewSet, HistoricPersonViewSet,
     HistoricPlaceViewSet, HistoricEventViewSet,
     PersonPlaceViewSet, EventPersonViewSet,
-    EventPhotoViewSet, PlacePhotoViewSet, HistoricInterviewViewSet,
+    EventPhotoViewSet, PlacePhotoViewSet,
+    HistoricInterviewViewSet, FeedbackView,
 )
 
 router = DefaultRouter()
@@ -32,6 +33,7 @@ urlpatterns = [
     path("places/<int:pk>/details/", place_details, name="place-details"),
     path("events/<int:pk>/details/", event_details, name="event-details"),
     path("persons/<int:pk>/details/", person_details, name="person-details"),
+    path("feedback/", FeedbackView.as_view(), name="feedback"),
 
     # Auth
     path(

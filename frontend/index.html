@@ -29,6 +29,7 @@
       <button id="btnMap" class="toggle-btn active">Map</button>
       <button id="btnList" class="toggle-btn">List</button>
       <button id="btnOral" class="toggle-btn">Oral Archive</button>
+      <button id="btnFeedback" class="toggle-btn">Feedback</button>
     </div>
   </header>
 
@@ -127,6 +128,57 @@
       <div class="oral-video mt" id="oralVideoContainer">
         <!-- Video iframe will be injected here when an interview is selected -->
       </div>
+    </div>
+  </div>
+
+  <!-- Feedback Modal -->
+  <div id="feedbackOverlay" class="modal-overlay">
+    <div class="modal modal-md" role="dialog" aria-modal="true" aria-labelledby="feedbackTitle">
+      <button class="modal-close" aria-label="Close" data-close-feedback>&times;</button>
+
+      <h2 id="feedbackTitle">Send us your feedback</h2>
+
+      <p>
+        If you found an error in our website, or if you would like to propose
+        another place or story to be added to our database, please use the
+        form below. Your message will be sent to
+        <strong>support@historicalcairo.com</strong>.
+      </p>
+
+      <form id="feedbackForm" class="feedback-form">
+        <div class="field">
+          <label for="fbName">Your name (optional)</label>
+          <input type="text" id="fbName" name="name" />
+        </div>
+
+        <div class="field">
+          <label for="fbEmail">Your email (optional)</label>
+          <input
+            type="email"
+            id="fbEmail"
+            name="email"
+            placeholder="you@example.com"
+          />
+        </div>
+
+        <div class="field">
+          <label for="fbMessage">Message (required)</label>
+          <textarea
+            id="fbMessage"
+            name="message"
+            rows="5"
+            placeholder="Please describe the error, suggestion, or new place..."
+            required
+          ></textarea>
+        </div>
+
+        <div id="feedbackStatus" class="feedback-status" aria-live="polite"></div>
+
+        <div class="modal-actions">
+          <button type="button" class="btn" data-close-feedback>Cancel</button>
+          <button type="submit" class="btn primary">Send feedback</button>
+        </div>
+      </form>
     </div>
   </div>
 

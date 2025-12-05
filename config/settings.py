@@ -138,3 +138,19 @@ if _raw_csrf:
     ]
 else:
     CSRF_TRUSTED_ORIGINS = []
+
+# --- Email / feedback settings
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend",
+)
+
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL",
+    default="no-reply@historicalcairo.com",
+)
+
+FEEDBACK_RECIPIENT = env(
+    "FEEDBACK_RECIPIENT",
+    default="support@historicalcairo.com",
+)
