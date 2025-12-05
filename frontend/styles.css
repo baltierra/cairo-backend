@@ -82,7 +82,8 @@ main { height: calc(100vh - 56px); }
 
 /* Allow scrolling inside the place + detail modals when content is long */
 #placeOverlay .modal,
-#detailOverlay .modal {
+#detailOverlay .modal
+#introOverlay .modal {
   max-height: 90vh;      /* don’t grow taller than the viewport */
   overflow-y: auto;
   padding-bottom: 24px;  /* a bit more breathing room at the bottom */      /* scroll inside the modal if needed */
