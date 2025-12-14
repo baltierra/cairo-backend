@@ -64,7 +64,7 @@ class FeedbackView(APIView):
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
-        subject = "Historic Cairo map feedback"
+        subject = "New feedback from CAAHT Web Map"
 
         lines = []
         if name:
@@ -91,7 +91,8 @@ class FeedbackView(APIView):
             fail_silently=False,
         )
 
-        return Response({"detail": "Feedback sent."}, status=status.HTTP_200_OK)
+        return Response({"detail": "Feedback sent."},
+                        status=status.HTTP_200_OK)
 
 
 class BaseReadWrite(viewsets.ModelViewSet):
@@ -183,7 +184,10 @@ def place_details(request, pk: int):
             "caption": pp.photo.caption,
             "order": pp.photo_order,
         }
-        for pp in PlacePhoto.objects.select_related("photo").filter(place=p).order_by("photo_order")
+        for pp in (PlacePhoto.objects
+                   .select_related("photo")
+                   .filter(place=p)
+                   .order_by("photo_order"))
         if getattr(pp.photo, "image", None)
     ]
 
@@ -227,7 +231,10 @@ def event_details(request, pk: int):
             "caption": ep.photo.caption,
             "order": ep.photo_order,
         }
-        for ep in EventPhoto.objects.select_related("photo").filter(event=e).order_by("photo_order")
+        for ep in (EventPhoto.objects
+                   .select_related("photo")
+                   .filter(event=e)
+                   .order_by("photo_order"))
         if getattr(ep.photo, "image", None)
     ]
     people = list(

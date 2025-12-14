@@ -284,14 +284,15 @@ function setView(mode) {
 }
 
 // Leaflet map init
-const southWest = [36.968086, -89.218329];
-const northEast = [37.026953, -89.126957];
-const bounds = L.latLngBounds(southWest, northEast);
+// Start with a reasonable default center/zoom (used only as a fallback)
+const map = L.map("map", { zoomControl: false, attributionControl: true })
+  .setView([37.0, -89.18], 14);
 
-const map = L.map("map", { zoomControl: true, attributionControl: true });
-map.fitBounds(bounds);
+L.control.zoom({ position: "bottomleft" }).addTo(map);
+
 L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
-  attribution: '&copy; <a href="https://www.openstreetmap.org/">OSM</a> contributors'
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/">OSM</a> contributors'
 }).addTo(map);
 
 // Keep data cache for reuse
@@ -314,18 +315,39 @@ fetch(`${API_BASE}/places.geojson`)
 
 // Render markers as red circle dots
 function renderMarkers(geojson) {
+  // bounds that will grow to include each marker
+  const dataBounds = L.latLngBounds();
+
   (geojson.features || []).forEach(f => {
     placeFeatureById.set(f.id, f);
     const [lng, lat] = f.geometry.coordinates;
+
+    // Extend bounds with this point
+    dataBounds.extend([lat, lng]);
+
     const marker = L.circleMarker([lat, lng], {
-      radius: 7, color: "#b10f2e", fillColor: "#b10f2e", fillOpacity: 0.9, weight: 1.2
+      radius: 7,
+      color: "#b10f2e",
+      fillColor: "#b10f2e",
+      fillOpacity: 0.9,
+      weight: 1.2
     }).addTo(map);
 
-    const tooltipHtml = `<strong>${escapeHtml(f.properties.name)}</strong><br/>${escapeHtml(f.properties.brief || "")}`;
+    const tooltipHtml =
+      `<strong>${escapeHtml(f.properties.name)}</strong><br/>` +
+      `${escapeHtml(f.properties.brief || "")}`;
     marker.bindTooltip(tooltipHtml, { direction: "top", offset: [0, -6] });
 
     marker.on("click", () => openPlaceModal(f.id));
   });
+
+  // After adding all markers, zoom to fit them nicely
+  if (dataBounds.isValid()) {
+    map.fitBounds(dataBounds, {
+      padding: [40, 40],   // pixels of padding around the edges
+      maxZoom: 17          // don't zoom *too* far in
+    });
+  }
 }
 
 function renderList(geojson) {
@@ -361,7 +383,8 @@ function openPlaceModal(placeId) {
       placeMeta.textContent = dates;
 
       // History
-      placeHistory.textContent = data.history || "";
+      // placeHistory.textContent = data.history || "";
+      placeHistory.innerHTML = formatRichText(data.history || "");
 
       // Photos
       currentPhotos = (data.photos || []).filter(p => !!p.url);
@@ -691,4 +714,64 @@ function escapeHtml(s) {
 // If intro is not visible on load, we can start the tour immediately
 if (!introOverlay || !introOverlay.classList.contains("visible")) {
   startTourIfNeeded();
+}
+
+/**
+ * Turn simple plain text into basic HTML:
+ * - blank lines => paragraph breaks
+ * - lines starting with "- " or "• " => bullet list
+ * - lines starting with "# " or "## " => headings
+ */
+function formatRichText(raw) {
+  const text = (raw ?? "").toString();
+  if (!text.trim()) return "";
+
+  const escaped = escapeHtml(text);
+  const lines = escaped.split(/\r?\n/);
+
+  const out = [];
+  let listItems = [];
+
+  const flushList = () => {
+    if (!listItems.length) return;
+    out.push("<ul>");
+    listItems.forEach((item) => out.push(`<li>${item}</li>`));
+    out.push("</ul>");
+    listItems = [];
+  };
+
+  for (const line of lines) {
+    const trimmed = line.trim();
+
+    // Blank line => paragraph break
+    if (!trimmed) {
+      flushList();
+      continue;
+    }
+
+    // Bullets: "- something" or "• something"
+    if (/^[-•]\s+/.test(trimmed)) {
+      const item = trimmed.replace(/^[-•]\s+/, "");
+      listItems.push(item);
+      continue;
+    }
+
+    // Headings: "# Title" or "## Subtitle"
+    const headingMatch = trimmed.match(/^(#{1,3})\s+(.*)$/);
+    if (headingMatch) {
+      flushList();
+      const level = headingMatch[1].length;
+      const content = headingMatch[2];
+      const tag = level === 1 ? "h3" : "h4";
+      out.push(`<${tag}>${content}</${tag}>`);
+      continue;
+    }
+
+    // Normal paragraph
+    flushList();
+    out.push(`<p>${trimmed}</p>`);
+  }
+
+  flushList();
+  return out.join("\n");
 }

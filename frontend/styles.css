@@ -35,7 +35,7 @@
 html, body { height: 100%; margin: 0; }
 
 body {
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.45;
   font-family: "Atlas Grotesk", system-ui, -apple-system, Segoe UI, Roboto,
     "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
@@ -45,15 +45,64 @@ body {
 
 h1, h2, h3 { margin: 0 0 8px; }
 
-.topbar {
-  height: 56px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 12px; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100;
+/* .topbar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.brand { font-weight: 600; }
+
+.brand {
+  font-weight: 600;
+}
+
 .view-toggle .toggle-btn {
-  border: 1px solid var(--border); background: var(--btn); padding: 6px 10px; margin-left: 6px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--btn);
+  padding: 6px 10px;
+  margin-left: 6px;
+  border-radius: 8px;
+  cursor: pointer;
 }
-.view-toggle .toggle-btn.active { border-color: var(--brand); color: var(--brand); }
+
+.view-toggle .toggle-btn.active { 
+  border-color: var(--brand);
+  color: var(--brand);
+} */
+
+/* --- HEADER LAYOUT --- */
+.topbar {
+  padding: 10px 0;
+  text-align: center;             /* Centers text inside header */
+  border-bottom: 1px solid #ddd;
+  background: #f8f7f5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.topbar .brand {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Active button highlight (soft filled appearance) */
+.btn.active {
+  background-color: #0d6efd !important;
+  color: white !important;
+}
+
 
 main { height: calc(100vh - 56px); }
 .map { height: 100%; width: 100%; }
@@ -110,8 +159,8 @@ main { height: calc(100vh - 56px); }
 .modal p,
 .modal li,
 .modal div {
-  font-size: 1.05rem;
-  line-height: 1.50;
+  font-size: 1.00rem;
+  line-height: 1.25;
 }
 
 .modal h2,
@@ -120,7 +169,90 @@ main { height: calc(100vh - 56px); }
   margin-bottom: 16px;
 }
 
-.leaflet-tooltip { pointer-events: none; }
+/* Better typography inside rich-text areas */
+#placeHistory p,
+#detailBody p {
+  margin: 0 0 0.6rem;
+}
+
+#placeHistory ul,
+#detailBody ul {
+  margin: 0.4rem 0 0.8rem;
+  padding-left: 1.2rem;
+}
+
+#placeHistory h3,
+#placeHistory h4,
+#detailBody h3,
+#detailBody h4 {
+  margin: 0.8rem 0 0.4rem;
+  font-size: 1.00rem;
+}
+
+/* Leaflet tooltip: ignore mouse so it doesn't block clicks */
+.leaflet-tooltip {
+  pointer-events: none;
+}
+
+/* Center zoom controls at bottom and lift them above the edge */
+.leaflet-bottom.leaflet-left {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(25px + env(safe-area-inset-bottom, 0px)); /* space from bottom */
+}
+
+/* Zoom control container */
+.leaflet-control-zoom {
+  display: flex !important;
+  flex-direction: row-reverse !important;  /* shows "-  +" instead of "+  -" */
+  background: #fff !important;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+
+  /* Fade-in animation */
+  opacity: 0;
+  animation: zoomFadeIn 0.7s ease-out forwards;
+  animation-delay: 0.3s; /* starts after map appears */
+}
+
+/* Zoom buttons: size + layout */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  width: 48px;
+  height: 48px;
+  line-height: 48px;
+  font-size: 22px;
+  text-align: center;
+  background: #fff;
+  border-radius: 6px !important;
+  margin: 0 2px !important;   /* small gap between - and + */
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* Remove default vertical separator artifact from Leaflet's stacking style */
+.leaflet-control-zoom-in {
+  border-bottom: none !important;
+}
+
+/* Fade-in animation for zoom controls */
+@keyframes zoomFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover feedback */
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background: #f2f2f2;
+  transform: translateY(-1px);
+}
 
 /* Intro modal video */
 .intro-video {
@@ -290,6 +422,12 @@ main { height: calc(100vh - 56px); }
   border-radius: 6px;
 }
 
+@media (max-width: 400px) {
+  .toggle-btn {
+    padding: 4px 10px;
+    font-size: 13px;
+  }
+}
 /* If you’d like, next we can:
 	•	Add a “Restart tour” link in the footer.
 	•	Make the tooltip arrowed (little triangle pointing to the button).
