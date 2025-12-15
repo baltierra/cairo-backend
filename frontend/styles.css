@@ -198,7 +198,7 @@ main { height: calc(100vh - 56px); }
 .leaflet-bottom.leaflet-left {
   left: 50%;
   transform: translateX(-50%);
-  bottom: calc(25px + env(safe-area-inset-bottom, 0px)); /* space from bottom */
+  bottom: calc(60px + env(safe-area-inset-bottom, 0px)); /* space from bottom */
 }
 
 /* Zoom control container */
@@ -219,10 +219,10 @@ main { height: calc(100vh - 56px); }
 /* Zoom buttons: size + layout */
 .leaflet-control-zoom-in,
 .leaflet-control-zoom-out {
-  width: 48px;
-  height: 48px;
-  line-height: 48px;
-  font-size: 22px;
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 32px;
   text-align: center;
   background: #fff;
   border-radius: 6px !important;
