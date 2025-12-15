@@ -422,13 +422,17 @@ main { height: calc(100vh - 56px); }
   border-radius: 6px;
 }
 
+/* --- BUTTONS: Very small phones only (<400px) --- */
 @media (max-width: 400px) {
   .toggle-btn {
     padding: 4px 10px;
     font-size: 13px;
   }
 }
-/* If you’d like, next we can:
-	•	Add a “Restart tour” link in the footer.
-	•	Make the tooltip arrowed (little triangle pointing to the button).
-	•	Add keyboard navigation (Esc to cancel, Enter for next). */
+
+/* --- MAP: Lift Leaflet zoom controls on phones (<768px) --- */
+@media (max-width: 768px) {
+  .leaflet-control-zoom {
+    margin-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
+  }
+}
