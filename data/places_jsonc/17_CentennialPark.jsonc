@@ -1,0 +1,68 @@
+[
+  {
+    // =====================================================================
+    // ⚠️ DO NOT MODIFY the fields below
+    // These identify the Django model and primary key for import.
+    // =====================================================================
+
+    // Django model path: always "core.historicplace"
+    "model": "core.historicplace",
+
+    // Primary key (integer). Leave as 0 or a temporary number.
+    // The maintainer will update these before loading into the database.
+    "pk": 0,
+
+    // =====================================================================
+    // 🏛️ HISTORIC PLACE DATA TO FILL IN
+    // Everything inside "fields" below should be filled by the contributor.
+    // =====================================================================
+
+    "fields": {
+      // -------------------------------------------------------------------
+      // BASIC INFORMATION
+      // -------------------------------------------------------------------
+
+      // 📍 The official or commonly used name of the historic place.
+      // Example: "Magnolia Manor" or "Old Custom House"
+      "place_name": "Centennial Park",
+
+      // 🧭 Decimal latitude coordinate of the site.
+      // Must be within Cairo, IL bounds: 36.968086 → 37.026953
+      "latitude": 37.00141454117958,
+
+      // 🧭 Decimal longitude coordinate of the site.
+      // Must be within Cairo, IL bounds: -89.218329 → -89.126957
+      "longitude": 89.16509556695408,
+
+      // 📝 A short (1–2 sentence) description of the place.
+      // This appears as the tooltip on the map. Keep it concise (<200 characters).
+      "brief": "Located on 8th Street, this park commemorates Cairo’s rich Black heritage and the community’s century-long struggle for freedom and justice",
+
+      // 📖 The detailed historical description.
+      // Can include multiple paragraphs. Describe the significance,
+      // construction, important dates, and people/events related.
+      "history": "Centennial Heritage Park, located on 8th Street between Halliday and Ohio Streets, honors the enduring legacy of Cairo’s Black community. Established in the early 1970s, the park commemorates a century of resilience, from emancipation and migration to the Civil Rights Movement. It occupies land near key historical sites, including the Old City Hall and St. Columba School, both central to local organizing and activism. Over the years, Centennial Park has served as a gathering place for cultural events, memorials, and community celebrations that highlight the shared history of struggle and achievement in Cairo. Today, it stands as a living monument to the generations who built and sustained the city’s Black heritage.",
+
+      // 📅 The date construction or use of the site began.
+      // Format: "YYYY-MM-DD" or null if unknown.
+      // Example: "1883-05-01"
+      "date_start": "1972-01-01",
+
+      // 📅 The date the site ceased operation, was demolished, or lost significance.
+      // Format: "YYYY-MM-DD" or null if still standing or unknown.
+      "date_end": null,
+
+      // -------------------------------------------------------------------
+      // META INFORMATION (AUTOMATICALLY MANAGED)
+      // -------------------------------------------------------------------
+
+      // ⚙️ DO NOT EDIT: the timestamp when the record was added.
+      // Used internally for ordering and tracking.
+      "date_added": "2025-01-01T00:00:00Z",
+
+      // ⚙️ DO NOT EDIT: last modification timestamp.
+      // Will be updated automatically in production.
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  }
+]

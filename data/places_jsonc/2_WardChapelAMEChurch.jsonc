@@ -1,0 +1,68 @@
+[
+  {
+    // =====================================================================
+    // ⚠️ DO NOT MODIFY the fields below
+    // These identify the Django model and primary key for import.
+    // =====================================================================
+
+    // Django model path: always "core.historicplace"
+    "model": "core.historicplace",
+
+    // Primary key (integer). Leave as 0 or a temporary number.
+    // The maintainer will update these before loading into the database.
+    "pk": 0,
+
+    // =====================================================================
+    // 🏛️ HISTORIC PLACE DATA TO FILL IN
+    // Everything inside "fields" below should be filled by the contributor.
+    // =====================================================================
+
+    "fields": {
+      // -------------------------------------------------------------------
+      // BASIC INFORMATION
+      // -------------------------------------------------------------------
+
+      // 📍 The official or commonly used name of the historic place.
+      // Example: "Magnolia Manor" or "Old Custom House"
+      "place_name": "Ward Chapel AME Church",
+
+      // 🧭 Decimal latitude coordinate of the site.
+      // Must be within Cairo, IL bounds: 36.968086 → 37.026953
+      "latitude": 37.00292131467407,
+
+      // 🧭 Decimal longitude coordinate of the site.
+      // Must be within Cairo, IL bounds: -89.218329 → -89.126957
+      "longitude": 89.17455478764747,
+
+      // 📝 A short (1–2 sentence) description of the place.
+      // This appears as the tooltip on the map. Keep it concise (<200 characters).
+      "brief": "The AME Church aided freedom seekers and fueled the Civil Rights Movement.",
+
+      // 📖 The detailed historical description.
+      // Can include multiple paragraphs. Describe the significance,
+      // construction, important dates, and people/events related.
+      "history": "Established in 1863, the AME Church in Cairo addressed the physical and spiritual needs of freedmen in the area. With a rich history of activism it played a critical role in helping enslaved persons get to freedom and later on supported the Civil Rights Movement.  Notable figures associated with the church include John Bird, Maria Renfro, Frederick Douglass, Hattie Kendrick, Rev. Ramsey, Rev. Charles Koen, John R. Lewis, Supreme Court Justice Thurgood Marshall, Rev. Jesse Jackson, and James Clark. It is listed on the National Register of Historic Places.",
+
+      // 📅 The date construction or use of the site began.
+      // Format: "YYYY-MM-DD" or null if unknown.
+      // Example: "1883-05-01"
+      "date_start": "1863-01-01",
+
+      // 📅 The date the site ceased operation, was demolished, or lost significance.
+      // Format: "YYYY-MM-DD" or null if still standing or unknown.
+      "date_end": null,
+
+      // -------------------------------------------------------------------
+      // META INFORMATION (AUTOMATICALLY MANAGED)
+      // -------------------------------------------------------------------
+
+      // ⚙️ DO NOT EDIT: the timestamp when the record was added.
+      // Used internally for ordering and tracking.
+      "date_added": "2025-01-01T00:00:00Z",
+
+      // ⚙️ DO NOT EDIT: last modification timestamp.
+      // Will be updated automatically in production.
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  }
+]

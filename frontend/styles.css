@@ -1,3 +1,27 @@
+@font-face {
+  font-family: "Atlas Grotesk";
+  src: url("./fonts/AtlasGrotesk-Regular.otf") format("opentype");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atlas Grotesk";
+  src: url("./fonts/AtlasGrotesk-Medium.otf") format("opentype");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Atlas Grotesk";
+  src: url("./fonts/AtlasGrotesk-Bold.otf") format("opentype");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg: #fff;
   --fg: #111;
@@ -9,18 +33,76 @@
 
 * { box-sizing: border-box; }
 html, body { height: 100%; margin: 0; }
-body { font: 14px/1.45 system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif; color: var(--fg); background: var(--bg); }
+
+body {
+  font-size: 12px;
+  line-height: 1.45;
+  font-family: "Atlas Grotesk", system-ui, -apple-system, Segoe UI, Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  color: var(--fg);
+  background: var(--bg);
+}
+
 h1, h2, h3 { margin: 0 0 8px; }
 
-.topbar {
-  height: 56px; display: flex; align-items: center; justify-content: space-between;
-  padding: 0 12px; border-bottom: 1px solid var(--border); background: var(--bg); position: sticky; top: 0; z-index: 100;
+/* .topbar {
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 12px;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
-.brand { font-weight: 600; }
+
+.brand {
+  font-weight: 600;
+}
+
 .view-toggle .toggle-btn {
-  border: 1px solid var(--border); background: var(--btn); padding: 6px 10px; margin-left: 6px; border-radius: 8px; cursor: pointer;
+  border: 1px solid var(--border);
+  background: var(--btn);
+  padding: 6px 10px;
+  margin-left: 6px;
+  border-radius: 8px;
+  cursor: pointer;
 }
-.view-toggle .toggle-btn.active { border-color: var(--brand); color: var(--brand); }
+
+.view-toggle .toggle-btn.active { 
+  border-color: var(--brand);
+  color: var(--brand);
+} */
+
+/* --- HEADER LAYOUT --- */
+.topbar {
+  padding: 10px 0;
+  text-align: center;             /* Centers text inside header */
+  border-bottom: 1px solid #ddd;
+  background: #f8f7f5;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+}
+
+.topbar .brand {
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.view-toggle {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Active button highlight (soft filled appearance) */
+.btn.active {
+  background-color: #0d6efd !important;
+  color: white !important;
+}
+
 
 main { height: calc(100vh - 56px); }
 .map { height: 100%; width: 100%; }
@@ -36,15 +118,26 @@ main { height: calc(100vh - 56px); }
 .modal-overlay {
   position: fixed; inset: 0; background: rgba(0,0,0,.35);
   display: none; place-items: center; padding: 16px; z-index: 1000;
+  backdrop-filter: blur(3px);
 }
 .modal-overlay.visible { display: grid; }
-.modal { background: #fff; border-radius: 12px; width: min(900px, 92vw); padding: 16px 18px; box-shadow: 0 10px 30px rgba(0,0,0,.2); position: relative; }
+.modal { background: #fff; border-radius: 14px; width: min(900px, 92vw); padding: 40px 50px; box-shadow: 0 20px 48px rgba(0,0,0,.2); position: relative; }
 .modal.modal-lg { width: min(1100px, 92vw); }
 .modal.modal-md { width: min(700px, 92vw); }
 .modal .modal-close {
   position: absolute; top: 8px; right: 10px; border: none; background: transparent; font-size: 22px; cursor: pointer;
 }
 .modal .modal-actions { text-align: right; margin-top: 12px; }
+
+/* Allow scrolling inside the place + detail modals when content is long */
+#placeOverlay .modal,
+#detailOverlay .modal,
+#introOverlay .modal {
+  max-height: 90vh;      /* don’t grow taller than the viewport */
+  overflow-y: auto;
+  padding-bottom: 24px;  /* a bit more breathing room at the bottom */      /* scroll inside the modal if needed */
+}
+
 .btn { border: 1px solid var(--border); background: var(--btn); padding: 6px 10px; border-radius: 8px; cursor: pointer; }
 .btn.primary { background: var(--brand); color: #fff; border-color: var(--brand); }
 .mt { margin-top: 12px; }
@@ -62,4 +155,284 @@ main { height: calc(100vh - 56px); }
 
 .modal-overlay.level-2 { z-index: 1100; }
 
-.leaflet-tooltip { pointer-events: none; }
+/* Larger text inside modal */
+.modal p,
+.modal li,
+.modal div {
+  font-size: 1.00rem;
+  line-height: 1.25;
+}
+
+.modal h2,
+.modal h3 {
+  margin-top: 0;
+  margin-bottom: 16px;
+}
+
+/* Better typography inside rich-text areas */
+#placeHistory p,
+#detailBody p {
+  margin: 0 0 0.6rem;
+}
+
+#placeHistory ul,
+#detailBody ul {
+  margin: 0.4rem 0 0.8rem;
+  padding-left: 1.2rem;
+}
+
+#placeHistory h3,
+#placeHistory h4,
+#detailBody h3,
+#detailBody h4 {
+  margin: 0.8rem 0 0.4rem;
+  font-size: 1.00rem;
+}
+
+/* Leaflet tooltip: ignore mouse so it doesn't block clicks */
+.leaflet-tooltip {
+  pointer-events: none;
+}
+
+/* Center zoom controls at bottom and lift them above the edge */
+.leaflet-bottom.leaflet-left {
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: calc(60px + env(safe-area-inset-bottom, 0px)); /* space from bottom */
+}
+
+/* Zoom control container */
+.leaflet-control-zoom {
+  display: flex !important;
+  flex-direction: row-reverse !important;  /* shows "-  +" instead of "+  -" */
+  background: #fff !important;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+
+  /* Fade-in animation */
+  opacity: 0;
+  animation: zoomFadeIn 0.7s ease-out forwards;
+  animation-delay: 0.3s; /* starts after map appears */
+}
+
+/* Zoom buttons: size + layout */
+.leaflet-control-zoom-in,
+.leaflet-control-zoom-out {
+  width: 64px;
+  height: 64px;
+  line-height: 64px;
+  font-size: 32px;
+  text-align: center;
+  background: #fff;
+  border-radius: 6px !important;
+  margin: 0 2px !important;   /* small gap between - and + */
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+/* Remove default vertical separator artifact from Leaflet's stacking style */
+.leaflet-control-zoom-in {
+  border-bottom: none !important;
+}
+
+/* Fade-in animation for zoom controls */
+@keyframes zoomFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover feedback */
+.leaflet-control-zoom-in:hover,
+.leaflet-control-zoom-out:hover {
+  background: #f2f2f2;
+  transform: translateY(-1px);
+}
+
+/* Intro modal video */
+.intro-video {
+  margin-top: 16px;
+  display: flex;
+  justify-content: center;
+}
+
+.intro-video-inner {
+  width: 100%;
+  max-width: 720px;         /* keeps it from getting too huge on big screens */
+  aspect-ratio: 16 / 9;     /* keeps the video in 16:9 */
+}
+
+.intro-video-frame {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+/* Oral archive modal */
+.oral-controls {
+  margin-top: 8px;
+}
+
+.oral-controls label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: 600;
+}
+
+#oralSelect {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font: inherit;
+  background: #fff;
+}
+
+/* Video container */
+.oral-video {
+  margin-top: 16px;
+}
+
+/* Responsive 16:9 video wrapper */
+.oral-video-inner {
+  width: 100%;
+  max-width: 720px;
+  margin: 0 auto;
+  position: relative;
+  padding-bottom: 56.25%; /* 16:9 */
+  height: 0;
+}
+
+.oral-video-inner iframe {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  border-radius: 8px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+  display: block;
+}
+
+/* Feedback modal form */
+.feedback-form {
+  margin-top: 12px;
+}
+
+.feedback-form .field {
+  margin-bottom: 12px;
+}
+
+.feedback-form label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.feedback-form input[type="text"],
+.feedback-form input[type="email"],
+.feedback-form textarea {
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font: inherit;
+  resize: vertical;
+}
+
+.feedback-status {
+  margin-top: 4px;
+  min-height: 1.2em;
+  font-size: 0.9rem;
+}
+
+.feedback-status.ok {
+  color: #0a7a2f;
+}
+
+.feedback-status.error {
+  color: #b10f2e;
+}
+
+/* ---------- Guided tour tooltip ---------- */
+
+.tour-tooltip {
+  position: fixed;
+  max-width: 320px;
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 12px 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+  z-index: 1200;
+  font-size: 0.9rem;
+}
+
+.tour-tooltip-title {
+  font-weight: 700;
+  margin-bottom: 4px;
+}
+
+.tour-tooltip-body {
+  margin-bottom: 8px;
+}
+
+.tour-tooltip-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+}
+
+.tour-tooltip-step {
+  font-size: 0.8rem;
+  color: #666;
+}
+
+.tour-tooltip-buttons .btn-sm {
+  padding: 3px 8px;
+  font-size: 0.85rem;
+}
+
+/* Small button variant reusing your .btn style */
+.btn-sm {
+  padding: 4px 8px;
+  font-size: 0.85rem;
+}
+
+/* Highlight the current UI element in the tour */
+.tour-highlight {
+  position: relative;
+  z-index: 1100;
+  box-shadow: 0 0 0 3px #b10f2e;
+  border-radius: 6px;
+}
+
+/* Highlight for both Map & List buttons simultaneously */
+.tour-dual-highlight {
+  outline: 3px solid #b10f2e;
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+/* --- BUTTONS: Very small phones only (<400px) --- */
+@media (max-width: 400px) {
+  .toggle-btn {
+    padding: 4px 10px;
+    font-size: 13px;
+  }
+}
+
+/* --- MAP: Lift Leaflet zoom controls on phones (<768px) --- */
+@media (max-width: 768px) {
+  .leaflet-control-zoom {
+    margin-bottom: calc(140px + env(safe-area-inset-bottom, 0px));
+  }
+}

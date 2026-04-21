@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from core.cms_admin import content_admin_site  # NEW
 
@@ -16,6 +17,15 @@ urlpatterns = [
         name="swagger-ui",
     ),
     path("api/v1/", include("api.urls")),
+    # NEW: Frontend root → serve static index.html
+    path(
+        "",
+        RedirectView.as_view(
+            url="/static/index.html",
+            permanent=False,
+        ),
+        name="frontend-root",
+    ),
 ]
 
 if settings.DEBUG:

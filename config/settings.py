@@ -1,5 +1,6 @@
 from pathlib import Path
 import environ
+import os
 from datetime import timedelta
 
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -19,7 +20,8 @@ if env_file.exists():
 SECRET_KEY = env("SECRET_KEY")
 DEBUG = env("DEBUG")
 ALLOWED_HOSTS = [
-    x.strip() for x in env("ALLOWED_HOSTS").split(",") if x.strip()]
+    x.strip() for x in env("ALLOWED_HOSTS").split(",") if x.strip()
+]
 
 INSTALLED_APPS = [
     # Django
@@ -41,6 +43,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     "corsheaders.middleware.CorsMiddleware",
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -68,25 +71,40 @@ TEMPLATES = [{
 WSGI_APPLICATION = "config.wsgi.application"
 ASGI_APPLICATION = "config.asgi.application"
 
+# --- Database
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.sqlite3",
+        # If DB_PATH is absolute (e.g. /data/db.sqlite3 in Docker), Path
+        # handling will honor that; if it's relative, it's BASE_DIR / DB_PATH.
         "NAME": str((BASE_DIR / env("DB_PATH")).resolve()),
         "OPTIONS": {"timeout": 30},
     }
 }
 
-STATIC_URL = "static/"
-STATIC_ROOT = BASE_DIR / "static"
+# --- Static files
+STATIC_URL = "/static/"
+STATIC_ROOT = env("STATIC_ROOT", default=str(BASE_DIR / "staticfiles"))
+
+# Frontend assets live in frontend/, collected into STATIC_ROOT
+STATICFILES_DIRS = [
+    BASE_DIR / "frontend",
+]
+
+# WhiteNoise settings
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/Chicago"
+# Referrer policy (important for OSM tiles)
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 USE_I18N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
+# --- Media files
 MEDIA_URL = "/media/"
-MEDIA_ROOT = BASE_DIR / "media"
+MEDIA_ROOT = env("MEDIA_ROOT", default=str(BASE_DIR / "media"))
 
 # --- DRF / JWT / OpenAPI
 REST_FRAMEWORK = {
@@ -99,19 +117,49 @@ REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
     "DEFAULT_PAGINATION_CLASS": "api.pagination.DefaultPagination",
 }
+
 SPECTACULAR_SETTINGS = {
     "TITLE": "Cairo Backend API",
     "DESCRIPTION": "API documentation for Cairo Backend.",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
 }
+
 SIMPLE_JWT = {
     "ACCESS_TOKEN_LIFETIME": timedelta(minutes=30),
     "REFRESH_TOKEN_LIFETIME": timedelta(days=7),
 }
 
 # --- CORS
-CORS_ALLOWED_ORIGINS = [
-    o.strip() for o in env("CORS_ALLOWED_ORIGINS").split(",") if o.strip()
-]
-CORS_ALLOW_CREDENTIALS = True
+# --- CSRF trusted origins (for HTTPS behind a proxy)
+_raw_csrf = os.environ.get("CSRF_TRUSTED_ORIGINS", "")
+
+if _raw_csrf:
+    CSRF_TRUSTED_ORIGINS = [
+        o.strip() for o in _raw_csrf.split(",") if o.strip()
+    ]
+else:
+    CSRF_TRUSTED_ORIGINS = []
+
+# --- Email / feedback settings
+EMAIL_BACKEND = env(
+    "EMAIL_BACKEND",
+    default="django.core.mail.backends.console.EmailBackend",
+)
+
+DEFAULT_FROM_EMAIL = env(
+    "DEFAULT_FROM_EMAIL",
+    default="support@historicalcairo.com",
+)
+
+FEEDBACK_RECIPIENT = env(
+    "FEEDBACK_RECIPIENT",
+    default="support@historicalcairo.com",
+)
+
+EMAIL_HOST = env("EMAIL_HOST", default="localhost")
+EMAIL_PORT = env.int("EMAIL_PORT", default=25)
+EMAIL_HOST_USER = env("EMAIL_HOST_USER", default="")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD", default="")
+EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS", default=False)
+EMAIL_USE_SSL = env.bool("EMAIL_USE_SSL", default=False)

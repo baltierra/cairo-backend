@@ -8,6 +8,7 @@ from core.models import (
     EventPerson,
     EventPhoto,
     PlacePhoto,
+    HistoricInterview,
 )
 
 
@@ -58,4 +59,10 @@ class EventPhotoSerializer(serializers.ModelSerializer):
 class PlacePhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = PlacePhoto
+        fields = "__all__"
+
+
+class HistoricInterviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HistoricInterview
         fields = "__all__"

@@ -1,7 +1,9 @@
-from rest_framework import viewsets, permissions
+from rest_framework import viewsets, permissions, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import JsonResponse
+from django.conf import settings
+from django.core.mail import send_mail
 from django.shortcuts import get_object_or_404
 
 from core.models import (
@@ -13,6 +15,7 @@ from core.models import (
     EventPerson,
     EventPhoto,
     PlacePhoto,
+    HistoricInterview
 )
 from .serializers import (
     PhotoSerializer,
@@ -23,6 +26,7 @@ from .serializers import (
     EventPersonSerializer,
     EventPhotoSerializer,
     PlacePhotoSerializer,
+    HistoricInterviewSerializer
 )
 
 
@@ -32,6 +36,63 @@ class HealthView(APIView):
 
     def get(self, request):
         return Response({"status": "ok"})
+
+
+class FeedbackView(APIView):
+    """
+    POST /api/v1/feedback/
+
+    Body (JSON):
+      {
+        "name": "...",    # optional
+        "email": "...",   # optional
+        "message": "..."  # required
+      }
+    """
+
+    authentication_classes = []  # no auth, no CSRF via SessionAuth
+    permission_classes = [permissions.AllowAny]
+
+    def post(self, request):
+        name = (request.data.get("name") or "").strip()
+        email = (request.data.get("email") or "").strip()
+        message = (request.data.get("message") or "").strip()
+
+        if not message:
+            return Response(
+                {"detail": "Message is required."},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        subject = "New feedback from CAAHT Web Map"
+
+        lines = []
+        if name:
+            lines.append(f"Name: {name}")
+        if email:
+            lines.append(f"Email: {email}")
+        if name or email:
+            lines.append("")
+        lines.append(message)
+
+        body = "\n".join(lines)
+
+        recipient = getattr(
+            settings,
+            "FEEDBACK_RECIPIENT",
+            "support@historicalcairo.com",
+        )
+
+        send_mail(
+            subject,
+            body,
+            settings.DEFAULT_FROM_EMAIL,
+            [recipient],
+            fail_silently=False,
+        )
+
+        return Response({"detail": "Feedback sent."},
+                        status=status.HTTP_200_OK)
 
 
 class BaseReadWrite(viewsets.ModelViewSet):
@@ -78,6 +139,11 @@ class PlacePhotoViewSet(BaseReadWrite):
     serializer_class = PlacePhotoSerializer
 
 
+class HistoricInterviewViewSet(BaseReadWrite):
+    queryset = HistoricInterview.objects.all()
+    serializer_class = HistoricInterviewSerializer
+
+
 def places_geojson(request):
     """Lightweight GeoJSON for map pins (name & brief in tooltip)."""
     features = []
@@ -118,7 +184,10 @@ def place_details(request, pk: int):
             "caption": pp.photo.caption,
             "order": pp.photo_order,
         }
-        for pp in PlacePhoto.objects.select_related("photo").filter(place=p).order_by("photo_order")
+        for pp in (PlacePhoto.objects
+                   .select_related("photo")
+                   .filter(place=p)
+                   .order_by("photo_order"))
         if getattr(pp.photo, "image", None)
     ]
 
@@ -162,7 +231,10 @@ def event_details(request, pk: int):
             "caption": ep.photo.caption,
             "order": ep.photo_order,
         }
-        for ep in EventPhoto.objects.select_related("photo").filter(event=e).order_by("photo_order")
+        for ep in (EventPhoto.objects
+                   .select_related("photo")
+                   .filter(event=e)
+                   .order_by("photo_order"))
         if getattr(ep.photo, "image", None)
     ]
     people = list(

@@ -1,0 +1,68 @@
+[
+  {
+    // =====================================================================
+    // ⚠️ DO NOT MODIFY the fields below
+    // These identify the Django model and primary key for import.
+    // =====================================================================
+
+    // Django model path: always "core.historicplace"
+    "model": "core.historicplace",
+
+    // Primary key (integer). Leave as 0 or a temporary number.
+    // The maintainer will update these before loading into the database.
+    "pk": 0,
+
+    // =====================================================================
+    // 🏛️ HISTORIC PLACE DATA TO FILL IN
+    // Everything inside "fields" below should be filled by the contributor.
+    // =====================================================================
+
+    "fields": {
+      // -------------------------------------------------------------------
+      // BASIC INFORMATION
+      // -------------------------------------------------------------------
+
+      // 📍 The official or commonly used name of the historic place.
+      // Example: "Magnolia Manor" or "Old Custom House"
+      "place_name": "Freedmen Camp / Pyramid/McBride  Courts",
+
+      // 🧭 Decimal latitude coordinate of the site.
+      // Must be within Cairo, IL bounds: 36.968086 → 37.026953
+      "latitude": 36.998953874761895,
+
+      // 🧭 Decimal longitude coordinate of the site.
+      // Must be within Cairo, IL bounds: -89.218329 → -89.126957
+      "longitude": 89.17345571683614,
+
+      // 📝 A short (1–2 sentence) description of the place.
+      // This appears as the tooltip on the map. Keep it concise (<200 characters).
+      "brief": "Once a freedom seekers’ camp, later a hub of Cairo’s civil rights movement.",
+
+      // 📖 The detailed historical description.
+      // Can include multiple paragraphs. Describe the significance,
+      // construction, important dates, and people/events related.
+      "history": "Also known as the Cairo Contraband Camp, this site, located between 12th and 11th Streets, was a crucial destination for thousands of freedom seekers escaping enslavement from 1861 to 1865. The camp featured 33 barracks, a school for children, a hospital, and a mess hall, and is a designated site within the National Park Service’s Network to Freedom. This land was also the site of the former Pyramid Courts housing projects, which were later renamed as McBride Public Housing. Following the passage of the 1937 U.S. Housing Act. Under President Franklin D. Roosevelt's New Deal administration, the federal government committed to clearing urban slums and collaborating with local authorities to develop better public housing options for American workers. The construction of two public housing complexes in Cairo began during World War II. Similar to other cities, the federal housing initiatives in Cairo adhered to existing patterns of racial segregation. Elmwood Place was designated for white residents, while Pyramid Court (later renamed McBride) was allocated for African Americans. Race also played a crucial role in site selection and the quality of property development. Elmwood Place was constructed from brick and situated in an uptown area that featured a mixed-income residential neighbourhood on Elm Street, between 37th and 40th Streets. In contrast, Pyramid Court consisted of less expensive wood-frame buildings located downtown in a low-lying, flood-prone area adjacent to the Mississippi River levee, on Cedar Street between 12th and 15th Streets. Pyramid Court, however, was also a place of strong community ties, marked by solidarity and Black joy. Families and children grew up in an environment of mutual care, support and social organization.  By the late 1960s, the housing project became a central point for the black freedom movements, as its working-class inhabitants stepped up as leaders in a significant citywide campaign for racial justice. In 1969, Rev. Charles Koen, who was raised and born in Pyramid Court together with other residents of Cairo formed the United Front, launching lawsuits and initiating an economic boycott to promote fair housing, unbiased hiring practices, and equal legal protections.",
+
+      // 📅 The date construction or use of the site began.
+      // Format: "YYYY-MM-DD" or null if unknown.
+      // Example: "1883-05-01"
+      "date_start": "1861-01-01",
+
+      // 📅 The date the site ceased operation, was demolished, or lost significance.
+      // Format: "YYYY-MM-DD" or null if still standing or unknown.
+      "date_end": "1970-01-01",
+
+      // -------------------------------------------------------------------
+      // META INFORMATION (AUTOMATICALLY MANAGED)
+      // -------------------------------------------------------------------
+
+      // ⚙️ DO NOT EDIT: the timestamp when the record was added.
+      // Used internally for ordering and tracking.
+      "date_added": "2025-01-01T00:00:00Z",
+
+      // ⚙️ DO NOT EDIT: last modification timestamp.
+      // Will be updated automatically in production.
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  }
+]

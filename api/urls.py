@@ -10,7 +10,8 @@ from .views import (
     PhotoViewSet, HistoricPersonViewSet,
     HistoricPlaceViewSet, HistoricEventViewSet,
     PersonPlaceViewSet, EventPersonViewSet,
-    EventPhotoViewSet, PlacePhotoViewSet
+    EventPhotoViewSet, PlacePhotoViewSet,
+    HistoricInterviewViewSet, FeedbackView,
 )
 
 router = DefaultRouter()
@@ -22,6 +23,7 @@ router.register(r"person-places", PersonPlaceViewSet, basename="person-place")
 router.register(r"event-people", EventPersonViewSet, basename="event-person")
 router.register(r"event-photos", EventPhotoViewSet, basename="event-photo")
 router.register(r"place-photos", PlacePhotoViewSet, basename="place-photo")
+router.register(r"interviews", HistoricInterviewViewSet, basename="interview")
 
 urlpatterns = [
     path("health/", HealthView.as_view(), name="health"),
@@ -31,6 +33,7 @@ urlpatterns = [
     path("places/<int:pk>/details/", place_details, name="place-details"),
     path("events/<int:pk>/details/", event_details, name="event-details"),
     path("persons/<int:pk>/details/", person_details, name="person-details"),
+    path("feedback/", FeedbackView.as_view(), name="feedback"),
 
     # Auth
     path(

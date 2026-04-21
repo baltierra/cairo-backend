@@ -1,0 +1,68 @@
+[
+  {
+    // =====================================================================
+    // ⚠️ DO NOT MODIFY the fields below
+    // These identify the Django model and primary key for import.
+    // =====================================================================
+
+    // Django model path: always "core.historicplace"
+    "model": "core.historicplace",
+
+    // Primary key (integer). Leave as 0 or a temporary number.
+    // The maintainer will update these before loading into the database.
+    "pk": 0,
+
+    // =====================================================================
+    // 🏛️ HISTORIC PLACE DATA TO FILL IN
+    // Everything inside "fields" below should be filled by the contributor.
+    // =====================================================================
+
+    "fields": {
+      // -------------------------------------------------------------------
+      // BASIC INFORMATION
+      // -------------------------------------------------------------------
+
+      // 📍 The official or commonly used name of the historic place.
+      // Example: "Magnolia Manor" or "Old Custom House"
+      "place_name": " St. Columba Catholic Church and School",
+
+      // 🧭 Decimal latitude coordinate of the site.
+      // Must be within Cairo, IL bounds: 36.968086 → 37.026953
+      "latitude": 37.00170160678276,
+
+      // 🧭 Decimal longitude coordinate of the site.
+      // Must be within Cairo, IL bounds: -89.218329 → -89.126957
+      "longitude": 89.17244097453316,
+
+      // 📝 A short (1–2 sentence) description of the place.
+      // This appears as the tooltip on the map. Keep it concise (<200 characters).
+      "brief": "From 1928 to 1962, St. Columba School educated Black students and later became a hub for civil rights organizing",
+
+      // 📖 The detailed historical description.
+      // Can include multiple paragraphs. Describe the significance,
+      // construction, important dates, and people/events related.
+      "history": "St. Columba School played a pivotal role in the education of Black students from 1928 until its closure in 1962. This institution not only provided parochial education but also fostered a sense of community and empowerment among its students during a time of significant social challenges. After its closure, students were given the opportunity to continue their education at St. Joseph’s Grade and Junior High School, ensuring that their academic journey could persist. In the years that followed, the church and school transitioned to become the headquarters for the United Front, led by Charles Koen, from the late 1960s to the 1970s, further advocacy in shaping the future of the community's children.",
+
+      // 📅 The date construction or use of the site began.
+      // Format: "YYYY-MM-DD" or null if unknown.
+      // Example: "1883-05-01"
+      "date_start": "1928-01-01",
+
+      // 📅 The date the site ceased operation, was demolished, or lost significance.
+      // Format: "YYYY-MM-DD" or null if still standing or unknown.
+      "date_end": "1962-01-01",
+
+      // -------------------------------------------------------------------
+      // META INFORMATION (AUTOMATICALLY MANAGED)
+      // -------------------------------------------------------------------
+
+      // ⚙️ DO NOT EDIT: the timestamp when the record was added.
+      // Used internally for ordering and tracking.
+      "date_added": "2025-01-01T00:00:00Z",
+
+      // ⚙️ DO NOT EDIT: last modification timestamp.
+      // Will be updated automatically in production.
+      "date_modified": "2025-01-01T00:00:00Z"
+    }
+  }
+]
