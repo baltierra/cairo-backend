@@ -290,9 +290,10 @@ const map = L.map("map", { zoomControl: false, attributionControl: true })
 
 L.control.zoom({ position: "bottomleft" }).addTo(map);
 
-L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   attribution:
-    '&copy; <a href="https://www.openstreetmap.org/">OSM</a> contributors'
+    '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
+  referrerPolicy: "strict-origin-when-cross-origin"
 }).addTo(map);
 
 // Keep data cache for reuse

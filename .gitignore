@@ -10,6 +10,8 @@
 *.userosscache
 *.sln.docstates
 docs/
+*.swp
+*.swo
 
 # macOS
 .DS_Store

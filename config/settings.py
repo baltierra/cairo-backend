@@ -96,6 +96,8 @@ STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 LANGUAGE_CODE = "en-us"
 TIME_ZONE = "America/Chicago"
+# Referrer policy (important for OSM tiles)
+SECURE_REFERRER_POLICY = "strict-origin-when-cross-origin"
 USE_I18N = True
 USE_TZ = True
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
