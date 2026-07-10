@@ -254,6 +254,12 @@ main { height: calc(100vh - 56px); }
   transform: translateY(-1px);
 }
 
+.intro-cta {
+  display: flex;
+  justify-content: center;
+  margin: 10px 0;
+}
+
 /* Intro modal video */
 .intro-video {
   margin-top: 16px;
